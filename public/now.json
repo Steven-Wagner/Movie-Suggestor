@@ -1,0 +1,13 @@
+{"version": 2,
+    "alias": "stevenwagner-movie-suggester",
+    "name": "movie-suggester",
+    "routes": [
+        {
+          "src": "^/static/(.*)",
+          "dest": "/static/$1"
+        },
+        {
+          "src": ".*",
+          "dest": "/index.html"
+        }
+    ]}

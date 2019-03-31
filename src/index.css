@@ -12,3 +12,60 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 20px;
+  color: #444;
+  text-align: center;
+  line-height: 1.5;
+  height: 700px;
+}
+
+nav,
+footer {
+  padding: 1% 0;
+  background-color: #aaa;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+header {
+  padding: 45px 15px;
+}
+
+h2 {
+  overflow-wrap: break-word;
+}
+
+section {
+  padding: 30px 15px;
+  background-color: #bbb;
+}
+
+p {
+  margin: 0 auto;
+  max-width: 650px;
+}
+
+p + p {
+  margin-top: 15px;
+}
+
+label{
+  display: block;
+}
+
+img {
+  width: 30%;
+  max-width: 250px;
+}
