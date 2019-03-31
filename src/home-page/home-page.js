@@ -10,7 +10,7 @@ class Homepage extends Component {
                 <Nav status="homepage"/>
                 <main role="main">
                     <MainBanner/>
-                    <SuggestionsList movieSuggestions={this.props.movieSuggestions}/>          
+                    <SuggestionsList movieSuggestions={this.props.movieSuggestions} goToReview={this.props.goToReview} setCurrentTitle={this.props.setCurrentTitle}/>          
                 </main>
                 <footer>Footer</footer>
             </div>

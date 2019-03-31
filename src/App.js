@@ -9,6 +9,14 @@ import ReviewMovie from './review-movie/review-movie';
 import Login from './login/login';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentTitle: 'test'
+    }
+  }
+
   render() {
     return (
       <main className="App">
@@ -21,24 +29,32 @@ class App extends Component {
           render={({history})=> {
             return <Signup
             clickCancel={()=> history.push('/')}
+            goToHome={()=> history.push('/homepage')}
+            users={users}
             />
           }}
         />
         <Route 
           path="/newreview"
-          component={ReviewMovie}
+          render={({history})=>
+            <ReviewMovie
+            backOne={() => history.goBack()}/>
+          }
         />
         <Route 
           path="/login"
           render={({history})=>
             <Login clickCancel={()=> history.push('/')}
+            goToHome={()=> history.push('/homepage')}
             />
           }
         />
         <Route 
           path="/homepage"
-          render={()=>
-            <Homepage movieSuggestions={movieSuggestions}/>
+          render={({history})=>
+            <Homepage 
+            movieSuggestions={movieSuggestions}
+            />
           }
         />
         <Route 

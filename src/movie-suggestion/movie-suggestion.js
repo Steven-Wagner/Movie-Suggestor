@@ -24,8 +24,8 @@ export default function MovieSuggestion(props) {
                 <p>{props.movieData.releaseDate}</p>
                 <StarRating rating={props.movieData.rating}/>
             </header>
-            <button>Not Interested</button>
-            <button>Watched It</button>
+            <button onClick={() => props.handleRemoveMovie(props.index)}>Not Interested</button>
+            <button onClick={() => props.handleWatchedIt(props.index, props.movieData.title)}>Watched It</button>
         </section>
     )
 }

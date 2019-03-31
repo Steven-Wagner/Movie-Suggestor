@@ -1,7 +1,16 @@
 import React, {Component} from 'react'
 
 class ReviewMovie extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: this.props.title ? this.props.title : ''
+        }
+    }
+
     render() {
+
         return (
             <div>
                 <main role="main">
@@ -12,7 +21,7 @@ class ReviewMovie extends Component {
                     <form id="movie-review-form">
                     <div className="form-section">
                         <label htmlFor="movie-title">Movie Title</label>
-                        <input type="text" name="movie-title" placeholder="Star Wars: A New Hope" required/>
+                        <input value={this.state.title} type="text" name="movie-title" placeholder="Star Wars: A New Hope" required/>
                     </div>
                     <div className="stars form-section">
                         <label htmlFor="stars-review">Stars(1-5)</label>
