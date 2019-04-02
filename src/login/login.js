@@ -19,7 +19,7 @@ class Login extends Component {
     handleSubmit = e => {
         e.preventDefault()
         console.log('Send request to API')
-        this.props.goToHome()
+        this.props.goToHome(this.state.username)
     }
 
     render() {

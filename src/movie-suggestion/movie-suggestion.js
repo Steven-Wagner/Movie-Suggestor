@@ -12,7 +12,7 @@ function StarRating(rating) {
         }
         ratingRounded -= 1
     }
-    return stars.join('')
+    return (<p className="star-rating">{stars.join('')}</p>)
 }
 
 export default function MovieSuggestion(props) {
@@ -24,8 +24,8 @@ export default function MovieSuggestion(props) {
                 <p>{props.movieData.releaseDate}</p>
                 <StarRating rating={props.movieData.rating}/>
             </header>
-            <button onClick={() => props.handleRemoveMovie(props.index)}>Not Interested</button>
-            <button onClick={() => props.handleWatchedIt(props.index, props.movieData.title)}>Watched It</button>
+            <button className="suggestion-options" onClick={() => props.handleRemoveMovie(props.index)}>Not Interested</button>
+            <button className="suggestion-options" onClick={() => props.handleWatchedIt(props.index, props.movieData.title)}>Watched It</button>
         </section>
     )
 }

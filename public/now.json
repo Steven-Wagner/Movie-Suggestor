@@ -10,4 +10,8 @@
           "src": ".*",
           "dest": "/index.html"
         }
-    ]}
+    ],
+    "env": {
+        "REACT_APP_OMDB_API_KEY": "@omdb_api_key"
+      }  
+}

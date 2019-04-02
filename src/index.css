@@ -22,7 +22,6 @@ body {
   color: #444;
   text-align: center;
   line-height: 1.5;
-  height: 700px;
 }
 
 nav,
@@ -37,6 +36,19 @@ nav {
   left: 0;
   right: 0;
   z-index: 10;
+}
+
+nav a:link, nav a:visited, nav a {
+  font-size: calc(20px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
+  text-decoration: none;
+  margin: 0 15px;
+  color: black;
+  display: inline-block; 
+}
+
+nav a:hover {
+  cursor: pointer;
+  color: blue;
 }
 
 header {
@@ -57,12 +69,27 @@ p {
   max-width: 650px;
 }
 
+.star-rating {
+  font-size: 2em;
+}
+
+.suggestion-options {
+  font-size: 1em;
+  padding: 0 5%;
+  margin: 0 5%;
+}
+
 p + p {
   margin-top: 15px;
 }
 
 label{
   display: block;
+}
+
+textarea {
+  width: 75%;
+  height: 10vh;
 }
 
 img {

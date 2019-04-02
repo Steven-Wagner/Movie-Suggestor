@@ -57,7 +57,16 @@ class Signup extends Component {
         }
         else {
             console.log('form submitted')
-            this.props.goToHome()
+            const newUser = {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                username: this.state.username,
+                password: this.state.password,
+                bio: this.state.bio,
+                friends: []
+            }
+            this.props.addUser(newUser)
+            this.props.goToHome(newUser.username)
         }
     }
     
@@ -89,7 +98,7 @@ class Signup extends Component {
                         </div>
                         <div>
                             <label htmlFor="bio">Bio</label>
-                            <textarea onChange={(e) => this.handleChange(e)} name='bio' id='bio' />
+                            <textarea onChange={(e) => this.handleChange(e)} name='bio' id='bio' placeholder="Tell others about your favorite movies and what you like."/>
                         </div>
                         <button type='submit'>Sign Up</button>
                         <button onClick={this.props.clickCancel}>Cancel</button>

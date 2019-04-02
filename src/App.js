@@ -13,11 +13,73 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentTitle: 'test'
+      users: users,
+      movieSuggestions: movieSuggestions,
+      suggestedFriends: []
     }
   }
 
+  findSuggestedFriends = (thisUser) => {
+    const currentUser = this.state.users.find(usr => usr.username === thisUser)
+
+    const suggested = this.state.users.filter(usr => {
+        if (usr.username === currentUser.username) {
+            return false
+        }
+        const alreadyFriends = currentUser.friends.find(friend => {
+            return friend === usr.username 
+        })
+        if (alreadyFriends) {
+            return false
+        }
+        return true
+    })
+    this.setState({
+        suggestedFriends: suggested
+    })
+}
+
+  addUser = user => {
+    const copy = Object.assign({}, this.state.movieSuggestions)
+    console.log('moviecopy', copy)
+    copy[user.username] = {reviews: []}
+    this.setState({
+      users: [...this.state.users, user],
+      movieSuggestions: copy
+    })
+  }
+
+  addFriend = (user, newFriend) => {
+    let empty;
+
+    const userListCopy =  Object.assign(this.state.users, empty)
+
+    const updatedUsers = userListCopy.map(usr => {
+      if (usr.username === user) {
+        usr.friends.push(newFriend)
+      }
+      return usr
+    })
+    this.setState({
+      users: updatedUsers
+    }, () => this.findSuggestedFriends(user))
+    
+  }
+
+  addNewReview = (username, newReview) => {
+    console.log('username', username)
+    const newCopy = Object.assign({}, this.state.movieSuggestions)
+    newCopy[username].reviews.push(newReview)
+    console.log('newCopy', newCopy)
+    this.setState({
+      movieSuggestions: newCopy
+    })
+  }
+
   render() {
+
+    console.log('movieSug', movieSuggestions)
+
     return (
       <main className="App">
         <Route 
@@ -29,38 +91,42 @@ class App extends Component {
           render={({history})=> {
             return <Signup
             clickCancel={()=> history.push('/')}
-            goToHome={()=> history.push('/homepage')}
-            users={users}
+            goToHome={(currentUser)=> history.push(`/homepage/${currentUser}`)}
+            users={this.state.users}
+            addUser={this.addUser}
             />
           }}
         />
         <Route 
-          path="/newreview"
-          render={({history})=>
+          path="/newreview/:user"
+          render={(props)=>
             <ReviewMovie
-            backOne={() => history.goBack()}/>
+            {...props}
+            addNewReview={this.addNewReview}/>
           }
         />
         <Route 
           path="/login"
-          render={({history})=>
+          render={({history, props})=>
             <Login clickCancel={()=> history.push('/')}
-            goToHome={()=> history.push('/homepage')}
+            goToHome={(currentUser)=> history.push(`/homepage/${currentUser}`)}
             />
           }
         />
         <Route 
-          path="/homepage"
-          render={({history})=>
+          path="/homepage/:user"
+          render={(props)=>
             <Homepage 
-            movieSuggestions={movieSuggestions}
+            users={this.state.users}
+            movieSuggestions={this.state.movieSuggestions}
+            {...props}
             />
           }
         />
         <Route 
-          path="/friendsuggestions"
-          render={()=>
-            <FriendSuggester users={users}/>
+          path="/friendsuggestions/:user"
+          render={(props)=>
+            <FriendSuggester suggestedFriends={this.state.suggestedFriends} findSuggestedFriends={this.findSuggestedFriends} removeSuggestedFriend={this.removeSuggestedFriend} addFriend={this.addFriend} users={this.state.users} {...props}/>
           }
         />
       </main>

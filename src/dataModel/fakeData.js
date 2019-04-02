@@ -1,33 +1,117 @@
-const movieSuggestions = [
-    {
-        title: "Star Wars: A New Hope",
-        releaseDate: "1977",
-        img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
-        rating: 5
-    },
-    {
-        title: "Star Wars: The Force Awakens",
-        releaseDate: "2017",
-        img: "https://m.media-amazon.com/images/M/MV5BMjQ1MzcxNjg4N15BMl5BanBnXkFtZTgwNzgwMjY4MzI@._V1_UX182_CR0,0,182,268_AL_.jpg",
-        rating: 1
-    },
-]
+const movieSuggestions = {
+    "SteveLovesDrama62": {reviews: [
+        {
+            title: "Star Wars: A New Hope",
+            releaseDate: "1977",
+            img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
+            rating: '5',
+        },
+        {
+            title: "Star Wars: The Force Awakens",
+            releaseDate: "2017",
+            img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
+            rating: '3',
+        },
+        {
+            title: "The Blair Witch Project",
+            releaseDate: "1999",
+            img: "https://upload.wikimedia.org/wikipedia/en/2/26/Blair_Witch_Project.jpg",
+            rating: '1',
+        },
+        {
+            title: "The Shining",
+            releaseDate: "1980",
+            img: "https://images-na.ssl-images-amazon.com/images/I/51O-Xu4MkrL._SY445_.jpg",
+            rating: '3',
+        },
+        {
+            img:"https://m.media-amazon.com/images/M/MV5BYmU1NDRjNDgtMzhiMi00NjZmLTg5NGItZDNiZjU5NTU4OTE0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_SX300.jpg",
+            rating:"5",
+            releaseDate:"1980",
+            title:"Star Wars: Episode V - The Empire Strikes Back"
+        },
+        {
+            img:"https://m.media-amazon.com/images/M/MV5BOWZlMjFiYzgtMTUzNC00Y2IzLTk1NTMtZmNhMTczNTk0ODk1XkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg",
+            rating:"5",
+            releaseDate:"1983",
+            title:"Star Wars: Episode VI - Return of the Jedi"
+        },
+    ]},
+    "I'm 12": {reviews: [
+        {
+            title: "Star Wars: A New Hope",
+            releaseDate: "1977",
+            img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
+            rating: '5',
+        },
+        {
+            title: "Star Wars: The Force Awakens",
+            releaseDate: "2017",
+            img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
+            rating: '5',
+        },
+        {
+            title: "The Blair Witch Project",
+            releaseDate: "1999",
+            img: "https://upload.wikimedia.org/wikipedia/en/2/26/Blair_Witch_Project.jpg",
+            rating: '5',
+        },
+        {
+            title: "The Shining",
+            releaseDate: "1980",
+            img: "https://images-na.ssl-images-amazon.com/images/I/51O-Xu4MkrL._SY445_.jpg",
+            rating: '5',
+        },
+    ]},
+    "Horrorismygame": { reviews: [
+        {
+            title: "The Blair Witch Project",
+            releaseDate: "1999",
+            img: "https://upload.wikimedia.org/wikipedia/en/2/26/Blair_Witch_Project.jpg",
+            rating: '3',
+        },
+        {
+            title: "The Shining",
+            releaseDate: "1980",
+            img: "https://images-na.ssl-images-amazon.com/images/I/51O-Xu4MkrL._SY445_.jpg",
+            rating: '1',
+        },
+        {
+            title: "Star Wars: A New Hope",
+            releaseDate: "1977",
+            img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
+            rating: '3',
+        },
+        {
+            title: "Star Wars: The Force Awakens",
+            releaseDate: "2017",
+            img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
+            rating: '4',
+        }
+    ]},
+}
 
 const users = [
     {
+        firstName: 'Steve',
+        LastName: 'Wagner',
         username: "SteveLovesDrama62",
-        bio: "Praesent sagittis a mi sit amet dictum. Donec orci nibh, dignissim in leo et, congue semper mauris. Donec elit lacus, dictum et placerat eget, rhoncus sodales erat. Curabitur sit amet placerat neque, a tempus mi. Suspendisse a tempus dolor. Nullam porttitor nisi sed justo dictum consequat. Etiam sed congue felis.",
-        matchScore: 27
+        bio: "I like long wanks on the beach and cool breeze through my hair. And I hate Stars Wars episode 8.",
+        friends: ["Horrorismygame", "I'm 12"]
     },
     {
+        firstName: 'Marty',
+        LastName: 'McFly',
         username: "Horrorismygame",
         bio: "Praesent sagittis a mi sit amet dictum. Donec orci nibh, dignissim in leo et, congue semper mauris. Donec elit lacus, dictum et placerat eget, rhoncus sodales erat. Curabitur sit amet placerat neque, a tempus mi. Suspendisse a tempus dolor. Nullam porttitor nisi sed justo dictum consequat. Etiam sed congue felis.",
-        matchScore: 10
+        friends: []
     },
     {
+        firstName: 'Cool',
+        LastName: 'Dude',
         username: "I'm 12",
         bio: "I'm awesome!!!!!",
-        matchScore: 2
+        friends: ["SteveLovesDrama62"]
     },
 ]
 
