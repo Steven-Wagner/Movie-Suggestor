@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import MovieSuggestion from '../movie-suggestion/movie-suggestion'
 import {setStatePromise} from '../util/common';
-import ConfirmReviewPopUp from '../confirm-review/confirm-review';
+import ConfirmReviewPopUp from '../pop-up/confirm-review/confirm-review';
+import {getListOfMovies} from '../util/movieSuggestionsAlgorithims'
 
 class SuggestionsList extends Component {
 
@@ -17,7 +18,10 @@ class SuggestionsList extends Component {
     }
 
     componentDidMount() {
-        const listOfMovies = this.getListOfMovies()
+        const listOfMovies = getListOfMovies(
+            this.props.user, 
+            this.state.users, 
+            this.state.movieSuggestions)
 
         this.setSortedMovies(listOfMovies)
     }
@@ -26,93 +30,10 @@ class SuggestionsList extends Component {
         clearTimeout(this.timeoutHandle)
     }
 
-    getListOfMovies = () => {
-        const userInfo = this.state.users.find(usr => {
-            return usr.username === this.props.user
-        })
-
-        const movieSuggestions = this.getCurrentUsersMovieSuggestions(userInfo)
-        
-        const avgSuggestions = this.getAvgSuggestions(movieSuggestions)
-
-        const sortedAvgSuggestions = this.sortSuggestions(avgSuggestions)
-    
-        return sortedAvgSuggestions
-    }
-
     setSortedMovies = sortedAvgSuggestions => {
         this.setState({
             sortedMovies: sortedAvgSuggestions
         })
-    }
-
-    getAvgSuggestions = movieSuggestions => {
-        return (
-            movieSuggestions.map(suggestion => {
-                const sum = (a, b) => parseInt(a) + parseInt(b)
-                const totalRating = suggestion.rating.reduce(sum)
-                
-                const newAvg = totalRating/suggestion.rating.length
-    
-                suggestion.rating = newAvg
-    
-                return suggestion
-            })
-        )
-    }
-
-    getCurrentUsersMovieSuggestions = userInfo => {
-        const suggestions = [];
-
-        userInfo.friends.forEach(friend => {
-            this.state.movieSuggestions[friend].reviews.forEach(review => {
-                if (suggestions.length === 0) {
-                    suggestions.push({
-                        title: review.title,
-                        releaseDate: review.releaseDate,
-                        img: review.img,
-                        rating: [review.rating],
-                    })
-                }
-                else {
-                    let done = false;
-                    let index = 0
-                    while (!done) {
-                        if (suggestions[index]) {
-                            if (suggestions[index].title === review.title) {
-                                suggestions[index].rating = [...suggestions[index].rating, review.rating]
-                                done = true
-                            }
-                        }
-                        if (index > suggestions.length-1) {
-                            suggestions.push({
-                                title: review.title,
-                                releaseDate: review.releaseDate,
-                                img: review.img,
-                                rating: [review.rating],
-                            })
-                            done = true
-                        }
-                        index += 1
-                    }
-                }
-            })
-        })
-        return suggestions
-    }
-
-    sortSuggestions = avgSuggestions => {
-        var len = avgSuggestions.length;
-        for (var i = len-1; i>=0; i--){
-          for(var j = 1; j<=i; j++){
-            if(avgSuggestions[j-1].rating < avgSuggestions[j].rating){
-                var temp = avgSuggestions[j-1];
-                avgSuggestions[j-1] = avgSuggestions[j];
-                avgSuggestions[j] = temp;
-             }
-          }
-        }
-        return avgSuggestions;
     }
 
     handleRemoveMovie = index => {
@@ -132,14 +53,17 @@ class SuggestionsList extends Component {
 
     handleWatchedIt = (index, movie) => {
         setStatePromise(this, {
-            confirmReview: {status: true, movie: movie}
+            confirmReview: {status: false, movie: ''}
+        })
+        .then(() => {
+            setStatePromise(this, {
+                confirmReview: {status: true, movie: movie}
+            })
         })
         .then(() => {
         this.popUpTimer()
         this.handleRemoveMovie(index)
         })
-        //Add a modal here to ask to give review
-        //need to find a way to prepopulate a the review with the title
     }
 
     popUpTimer = () => {

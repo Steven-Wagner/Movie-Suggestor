@@ -99,12 +99,12 @@ class ReviewMovie extends Component {
             })
             .then(() => {
                 this.popUpTimer()
-                this.resetFrom()
+                this.resetForm()
             })
             }
         }
 
-    resetFrom = () => {
+    resetForm = () => {
         this.setState({
             title: '',
             stars: 1
@@ -118,7 +118,7 @@ class ReviewMovie extends Component {
 
     handleCancel = (e) => {
         e.preventDefault()
-        this.props.history.push(`/homepage/${this.props.match.params.user}`)
+        this.props.history.goBack()
     }
 
     render() {
@@ -147,8 +147,7 @@ class ReviewMovie extends Component {
                         <input value={this.state.stars} onChange={this.changeForm} id="stars" type="number" name="stars" placeholder="1" min="1" max="5"/>
                     </div>
                     <button type="submit">Submit</button>
-                    <button type="reset">Reset</button>
-                    <button  type="button" onClick={(e) => this.handleCancel(e)}>Cancel</button>
+                    <button  type="button" onClick={(e) => this.handleCancel(e)}>Go Back</button>
                     </form>
                 </section>
                 </main>
