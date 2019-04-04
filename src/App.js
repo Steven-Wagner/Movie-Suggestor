@@ -98,7 +98,15 @@ class App extends Component {
           }}
         />
         <Route 
-          path="/newreview/:user"
+          path="/newreview/:user/:movie"
+          render={(props)=>
+            <ReviewMovie
+            {...props}
+            addNewReview={this.addNewReview}/>
+          }
+        />
+        <Route 
+          exact path="/newreview/:user"
           render={(props)=>
             <ReviewMovie
             {...props}

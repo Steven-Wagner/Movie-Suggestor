@@ -9,7 +9,7 @@ export default function SuggetedUser(props) {
                 <p>{props.user.bio}</p>
                 <p>{`Match Score: ${props.user.matchScore}`}</p>
             </header>
-            <button onClick={() => props.addFriend(props.currentUser, props.user.username)}>Follow</button>
+            <button onClick={() => props.addNewFriend(props.currentUser, props.user.username)}>Follow</button>
         </section>
     )
 }

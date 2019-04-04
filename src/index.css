@@ -13,6 +13,28 @@ code {
     monospace;
 }
 
+.pop-up, .confirm-review-popup {
+  position: fixed;
+  top: 100px;
+  z-index: 11;
+  font-size: .6em;
+  background-color: white;
+  width: 200px;
+  margin: 5%;
+  border: 1px solid black;
+  animation:  slideInFromLeft .2s ease-in 0s 1,
+              slideInFromLeft .2s ease-in 4.9s 1 reverse;
+}
+
+@keyframes slideInFromLeft {
+	0% {
+		left: -200px;
+	}
+	100% {
+    left: 0px
+	}
+}
+
 * {
   box-sizing: border-box;
 }

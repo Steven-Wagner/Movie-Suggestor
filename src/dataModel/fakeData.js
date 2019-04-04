@@ -62,19 +62,43 @@ const movieSuggestions = {
             img: "https://images-na.ssl-images-amazon.com/images/I/51O-Xu4MkrL._SY445_.jpg",
             rating: '5',
         },
+        {
+            title: "Toy Story",
+            releaseDate: "1995",
+            img: "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_SX300.jpg",
+            rating: '5',
+        },
+        {
+            title: "Shrek",
+            releaseDate: "2001",
+            img: "https://m.media-amazon.com/images/M/MV5BOGZhM2FhNTItODAzNi00YjA0LWEyN2UtNjJlYWQzYzU1MDg5L2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+            rating: '5',
+        },
+        {
+            title: "Finding Nemo",
+            releaseDate: "2003",
+            img: "https://m.media-amazon.com/images/M/MV5BZjMxYzBiNjUtZDliNC00MDAyLTg3N2QtOWNjNmNhZGQzNDg5XkEyXkFqcGdeQXVyNjE2MjQwNjc@._V1_SX300.jpg",
+            rating: '5',
+        },
+        {
+            title: "The Lego Movie",
+            releaseDate: "2014",
+            img: "https://m.media-amazon.com/images/M/MV5BMTg4MDk1ODExN15BMl5BanBnXkFtZTgwNzIyNjg3MDE@._V1_SX300.jpg",
+            rating: '5',
+        },
     ]},
     "Horrorismygame": { reviews: [
         {
             title: "The Blair Witch Project",
             releaseDate: "1999",
             img: "https://upload.wikimedia.org/wikipedia/en/2/26/Blair_Witch_Project.jpg",
-            rating: '3',
+            rating: '5',
         },
         {
             title: "The Shining",
             releaseDate: "1980",
             img: "https://images-na.ssl-images-amazon.com/images/I/51O-Xu4MkrL._SY445_.jpg",
-            rating: '1',
+            rating: '5',
         },
         {
             title: "Star Wars: A New Hope",
@@ -83,11 +107,29 @@ const movieSuggestions = {
             rating: '3',
         },
         {
+            title: "Evil Dead",
+            releaseDate: "2013",
+            img: "https://m.media-amazon.com/images/M/MV5BNTQ3OTkwNTgyN15BMl5BanBnXkFtZTcwNTAzOTAzOQ@@._V1_SX300.jpg",
+            rating: '5',
+        },
+        {
+            title: "Carnival of Souls",
+            releaseDate: "1962",
+            img: "https://m.media-amazon.com/images/M/MV5BYjgxYjI1ODktNWYyNy00N2EyLWFhOWEtMmI1ZmU3ZmU5ZWFjXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_SX300.jpg",
+            rating: '4',
+        },
+        {
             title: "Star Wars: The Force Awakens",
             releaseDate: "2017",
             img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
-            rating: '4',
-        }
+            rating: '2',
+        },
+        {
+            title: "Seven",
+            releaseDate: "1995",
+            img: "https://m.media-amazon.com/images/M/MV5BMGExMzc2NTItZDM0Yi00OWM2LWJiOWYtNTkyYTYzNmE5MjRhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+            rating: '5',
+        },
     ]},
 }
 

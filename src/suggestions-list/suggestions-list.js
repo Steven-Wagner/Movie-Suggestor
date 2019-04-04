@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import MovieSuggestion from '../movie-suggestion/movie-suggestion'
+import {setStatePromise} from '../util/common';
+import ConfirmReviewPopUp from '../confirm-review/confirm-review';
 
 class SuggestionsList extends Component {
 
@@ -8,15 +10,58 @@ class SuggestionsList extends Component {
         this.state = {
             movieSuggestions: this.props.movieSuggestions,
             users: this.props.users,
-            sortedMovies: []
+            sortedMovies: [],
+            confirmReview: {status: false, movie: ''}
         }
+        this.timoutHandle = 0;
     }
 
     componentDidMount() {
+        const listOfMovies = this.getListOfMovies()
+
+        this.setSortedMovies(listOfMovies)
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeoutHandle)
+    }
+
+    getListOfMovies = () => {
         const userInfo = this.state.users.find(usr => {
             return usr.username === this.props.user
         })
 
+        const movieSuggestions = this.getCurrentUsersMovieSuggestions(userInfo)
+        
+        const avgSuggestions = this.getAvgSuggestions(movieSuggestions)
+
+        const sortedAvgSuggestions = this.sortSuggestions(avgSuggestions)
+    
+        return sortedAvgSuggestions
+    }
+
+    setSortedMovies = sortedAvgSuggestions => {
+        this.setState({
+            sortedMovies: sortedAvgSuggestions
+        })
+    }
+
+    getAvgSuggestions = movieSuggestions => {
+        return (
+            movieSuggestions.map(suggestion => {
+                const sum = (a, b) => parseInt(a) + parseInt(b)
+                const totalRating = suggestion.rating.reduce(sum)
+                
+                const newAvg = totalRating/suggestion.rating.length
+    
+                suggestion.rating = newAvg
+    
+                return suggestion
+            })
+        )
+    }
+
+    getCurrentUsersMovieSuggestions = userInfo => {
         const suggestions = [];
 
         userInfo.friends.forEach(friend => {
@@ -53,21 +98,7 @@ class SuggestionsList extends Component {
                 }
             })
         })
-        console.log('suggestions', suggestions)
-        const avgSuggestions = suggestions.map(suggestion => {
-            const sum = (a, b) => parseInt(a) + parseInt(b)
-            const totalRating = suggestion.rating.reduce(sum)
-            
-            const newAvg = totalRating/suggestion.rating.length
-
-            suggestion.rating = newAvg
-
-            return suggestion
-        })
-        const sortedAvgSuggestions = this.sortSuggestions(avgSuggestions)
-        this.setState({
-            sortedMovies: sortedAvgSuggestions
-        })
+        return suggestions
     }
 
     sortSuggestions = avgSuggestions => {
@@ -92,10 +123,34 @@ class SuggestionsList extends Component {
         })
     }
 
+    removeReviewPopup = () => {
+        clearTimeout(this.timeoutHandle)
+        this.setState({
+            confirmReview: {status: false, movie: ''}
+        })
+    }
+
     handleWatchedIt = (index, movie) => {
+        setStatePromise(this, {
+            confirmReview: {status: true, movie: movie}
+        })
+        .then(() => {
+        this.popUpTimer()
         this.handleRemoveMovie(index)
+        })
         //Add a modal here to ask to give review
         //need to find a way to prepopulate a the review with the title
+    }
+
+    popUpTimer = () => {
+        clearTimeout(this.timeoutHandle)
+
+        this.timeoutHandle = setTimeout(() => {
+            this.setState({
+                confirmReview: {status: false, movie: ''}
+            })
+            this.timeoutHandle = 0;
+        }, 5000)
     }
 
     render() {
@@ -111,8 +166,16 @@ class SuggestionsList extends Component {
             })
         }
 
+        const watchedItPopup = this.state.confirmReview.status
+            ? <ConfirmReviewPopUp 
+                movie={this.state.confirmReview.movie} 
+                props={this.props}
+                removeReviewPopup={this.removeReviewPopup}/>
+            : ''
+
         return (
             <div className="suggestions-list">
+                {watchedItPopup}
                 {movies}
             </div>
         )
