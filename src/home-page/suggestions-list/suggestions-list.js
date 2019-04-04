@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import MovieSuggestion from '../movie-suggestion/movie-suggestion'
-import {setStatePromise} from '../util/common';
-import ConfirmReviewPopUp from '../pop-up/confirm-review/confirm-review';
-import {getListOfMovies} from '../util/movieSuggestionsAlgorithims'
+import MovieSuggestion from './movie-suggestion/movie-suggestion'
+import {setStatePromise} from '../../util/common'
+import ConfirmReviewPopUp from '../../pop-up/confirm-review/confirm-review'
+import {getListOfMovies} from '../../util/movieSuggestionsAlgorithims'
 
 class SuggestionsList extends Component {
 

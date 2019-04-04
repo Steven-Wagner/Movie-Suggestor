@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import Nav from '../Navigation/navigation';
-import SuggestedUser from '../suggest-user/suggested-user'
+import Nav from '../commonComponents/navigation';
+import SuggestedUser from './suggest-user/suggested-user'
 import {setStatePromise} from '../util/common';
 import PopUp from '../pop-up/pop-up';
 

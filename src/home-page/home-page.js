@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import Nav from '../Navigation/navigation';
-import MainBanner from '../main-banner/main-banner';
-import SuggestionsList from '../suggestions-list/suggestions-list'
+import Nav from '../commonComponents/navigation';
+import MainBanner from '../commonComponents/main-banner';
+import SuggestionsList from './suggestions-list/suggestions-list'
 
 class Homepage extends Component {
     render() {

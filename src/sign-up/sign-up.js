@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { users } from '../dataModel/fakeData';
-import ErrorMessage from '../error-message/error-message'
+import ErrorMessage from '../commonComponents/error-message'
 
 class Signup extends Component {
 

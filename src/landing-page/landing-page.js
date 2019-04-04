@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
-import Nav from '../Navigation/navigation'
-import MainBanner from '../main-banner/main-banner';
+import Nav from '../commonComponents/navigation'
+import MainBanner from '../commonComponents/main-banner';
 
 class LandingPage extends Component {
     render() {
 
     return(
         <div>
-            {/*link to homepage for testing purposes. Remove before deploy*/}
-            <Link to="homepage">Homepage Test</Link>
             <Nav status="landing-page"/>
             <main role="main">
                 <MainBanner/>

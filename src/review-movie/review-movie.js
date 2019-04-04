@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import ErrorMessage from '../error-message/error-message';
+import ErrorMessage from '../commonComponents/error-message';
 import {setStatePromise} from '../util/common';
 import PopUp from '../pop-up/pop-up'
-import Nav from '../Navigation/navigation';
+import Nav from '../commonComponents/navigation';
 
 class ReviewMovie extends Component {
 
