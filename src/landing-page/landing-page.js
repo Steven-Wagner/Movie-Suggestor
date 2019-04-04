@@ -17,14 +17,14 @@ class LandingPage extends Component {
                     <header>
                         <h3>Get suggestions from people just like you</h3>
                     </header>
-                    <p>[<em>placeholder for screenshot of dream recording interface</em>]</p>
-                    <p>Movie Suggestor allows you to follow people that have similar movie intrests and likes and gives you movie suggestions based on the friends you follow.</p>
+                    <p>[<em>placeholder for screenshot movie suggestions</em>]</p>
+                    <p>Movie Suggestor allows you to follow people that have similar movie intrests and gives you movie suggestions based on the friends you follow.</p>
                 </section>
                 <section>
                     <header>
                         <h3>Review Movies</h3>
                     </header>
-                    <p>[<em>placeholder for screenshot of dream recording interface</em>]</p>
+                    <p>[<em>placeholder for screenshot of movie review form</em>]</p>
                     <p>Review movies in seconds and help the people that follow you get personalized movie suggestions.</p>
                 </section>
                 <section>

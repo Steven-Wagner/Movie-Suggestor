@@ -1,13 +1,13 @@
 const movieSuggestions = {
     "SteveLovesDrama62": {reviews: [
         {
-            title: "Star Wars: A New Hope",
+            title: "Star Wars: Episode IV - A New Hope New Hope",
             releaseDate: "1977",
             img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
             rating: '5',
         },
         {
-            title: "Star Wars: The Force Awakens",
+            title: "Star Wars: Episode VII - The Force Awakens Force Awakens",
             releaseDate: "2017",
             img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
             rating: '3',
@@ -39,13 +39,13 @@ const movieSuggestions = {
     ]},
     "I'm 12": {reviews: [
         {
-            title: "Star Wars: A New Hope",
+            title: "Star Wars: Episode IV - A New Hope New Hope",
             releaseDate: "1977",
             img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
             rating: '5',
         },
         {
-            title: "Star Wars: The Force Awakens",
+            title: "Star Wars: Episode VII - The Force Awakens Force Awakens",
             releaseDate: "2017",
             img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
             rating: '5',
@@ -101,7 +101,7 @@ const movieSuggestions = {
             rating: '5',
         },
         {
-            title: "Star Wars: A New Hope",
+            title: "Star Wars: Episode IV - A New Hope New Hope",
             releaseDate: "1977",
             img: "https://images-na.ssl-images-amazon.com/images/I/81w4kfIpSjL._SY445_.jpg",
             rating: '3',
@@ -119,15 +119,15 @@ const movieSuggestions = {
             rating: '4',
         },
         {
-            title: "Star Wars: The Force Awakens",
+            title: "Star Wars: Episode VII - The Force Awakens Force Awakens",
             releaseDate: "2017",
             img: "https://m.media-amazon.com/images/M/MV5BOTAzODEzNDAzMl5BMl5BanBnXkFtZTgwMDU1MTgzNzE@._V1_SX300.jpg",
             rating: '2',
         },
         {
-            title: "Seven",
+            title: "Se7en",
             releaseDate: "1995",
-            img: "https://m.media-amazon.com/images/M/MV5BMGExMzc2NTItZDM0Yi00OWM2LWJiOWYtNTkyYTYzNmE5MjRhXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+            img: "https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjczMi00OTk4LTg3NWUtNmVhMTAzNTNjYjcyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_SX300.jpg",
             rating: '5',
         },
     ]},
