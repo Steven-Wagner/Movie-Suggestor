@@ -19,66 +19,63 @@ class App extends Component {
     }
   }
 
-  findSuggestedFriends = (thisUser) => {
-    const currentUser = this.state.users.find(usr => usr.username === thisUser)
+//   findSuggestedFriends = (thisUser) => {
+//     const currentUser = this.state.users.find(usr => usr.username === thisUser)
 
-    const suggested = this.state.users.filter(usr => {
-        if (usr.username === currentUser.username) {
-            return false
-        }
-        const alreadyFriends = currentUser.friends.find(friend => {
-            return friend === usr.username 
-        })
-        if (alreadyFriends) {
-            return false
-        }
-        return true
-    })
-    this.setState({
-        suggestedFriends: suggested
-    })
-}
+//     const suggested = this.state.users.filter(usr => {
+//         if (usr.username === currentUser.username) {
+//             return false
+//         }
+//         const alreadyFriends = currentUser.friends.find(friend => {
+//             return friend === usr.username 
+//         })
+//         if (alreadyFriends) {
+//             return false
+//         }
+//         return true
+//     })
+//     this.setState({
+//         suggestedFriends: suggested
+//     })
+// }
 
-  addUser = user => {
-    const copy = Object.assign({}, this.state.movieSuggestions)
-    console.log('moviecopy', copy)
-    copy[user.username] = {reviews: []}
-    this.setState({
-      users: [...this.state.users, user],
-      movieSuggestions: copy
-    })
-  }
+//   addUser = user => {
+//     const copy = Object.assign({}, this.state.movieSuggestions)
+//     console.log('moviecopy', copy)
+//     copy[user.id] = {reviews: []}
+//     this.setState({
+//       users: [...this.state.users, user],
+//       movieSuggestions: copy
+//     })
+//   }
 
-  addFriend = (user, newFriend) => {
-    let empty;
+//   addFriend = (user, newFriend) => {
+//     let empty;
 
-    const userListCopy =  Object.assign(this.state.users, empty)
+//     const userListCopy =  Object.assign(this.state.users, empty)
 
-    const updatedUsers = userListCopy.map(usr => {
-      if (usr.username === user) {
-        usr.friends.push(newFriend)
-      }
-      return usr
-    })
-    this.setState({
-      users: updatedUsers
-    }, () => this.findSuggestedFriends(user))
+//     const updatedUsers = userListCopy.map(usr => {
+//       if (usr.username === user) {
+//         usr.friends.push(newFriend)
+//       }
+//       return usr
+//     })
+//     this.setState({
+//       users: updatedUsers
+//     }, () => this.findSuggestedFriends(user))
     
-  }
+//   }
 
-  addNewReview = (username, newReview) => {
-    console.log('username', username)
-    const newCopy = Object.assign({}, this.state.movieSuggestions)
-    newCopy[username].reviews.push(newReview)
-    console.log('newCopy', newCopy)
-    this.setState({
-      movieSuggestions: newCopy
-    })
-  }
+//   addNewReview = (user_id, newReview) => {
+//     const newCopy = Object.assign({}, this.state.movieSuggestions)
+//     newCopy[user_id].reviews.push(newReview)
+//     console.log('newCopy', newCopy)
+//     this.setState({
+//       movieSuggestions: newCopy
+//     })
+//   }
 
   render() {
-
-    console.log('movieSug', movieSuggestions)
 
     return (
       <main className="App">
@@ -92,8 +89,6 @@ class App extends Component {
             return <Signup
             clickCancel={()=> history.push('/')}
             goToHome={(currentUser)=> history.push(`/homepage/${currentUser}`)}
-            users={this.state.users}
-            addUser={this.addUser}
             />
           }}
         />
@@ -102,7 +97,7 @@ class App extends Component {
           render={(props)=>
             <ReviewMovie
             {...props}
-            addNewReview={this.addNewReview}/>
+            />
           }
         />
         <Route 
@@ -110,7 +105,7 @@ class App extends Component {
           render={(props)=>
             <ReviewMovie
             {...props}
-            addNewReview={this.addNewReview}/>
+            />
           }
         />
         <Route 
@@ -122,11 +117,9 @@ class App extends Component {
           }
         />
         <Route 
-          path="/homepage/:user"
+          path="/homepage/:user_id"
           render={(props)=>
             <Homepage 
-            users={this.state.users}
-            movieSuggestions={this.state.movieSuggestions}
             {...props}
             />
           }

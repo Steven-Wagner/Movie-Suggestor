@@ -2,28 +2,43 @@ import React, {Component} from 'react';
 import MovieSuggestion from './movie-suggestion/movie-suggestion'
 import {setStatePromise} from '../../util/common'
 import ConfirmReviewPopUp from '../../pop-up/confirm-review/confirm-review'
-import {getListOfMovies} from '../../util/movieSuggestionsAlgorithims'
+import {API_BASE_URL} from '../../config'
+import TokenService from '../../services/token-services'
+import ErrorMessage from '../../commonComponents/error-message';
+import PopUp from '../../pop-up/pop-up';
 
 class SuggestionsList extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            movieSuggestions: this.props.movieSuggestions,
-            users: this.props.users,
             sortedMovies: [],
-            confirmReview: {status: false, movie: ''}
+            confirmReview: {status: false, movie: ''},
+            error: '',
+            errorPopUp: {status: false, error: ''}
         }
         this.timoutHandle = 0;
     }
 
     componentDidMount() {
-        const listOfMovies = getListOfMovies(
-            this.props.user, 
-            this.state.users, 
-            this.state.movieSuggestions)
-
-        this.setSortedMovies(listOfMovies)
+        fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user_id}`, {
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+        .then(res => {
+            return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        })
+        .then(listOfMovies => {
+            this.setSortedMovies(listOfMovies)
+        })
+        .catch(error => {
+            this.setState({
+                error: error.error
+            })
+        })
     }
 
     componentWillUnmount() {
@@ -36,11 +51,40 @@ class SuggestionsList extends Component {
         })
     }
 
-    handleRemoveMovie = index => {
+    handleRemoveMovie = (index, reason='not_interested') => {
         const newSuggestions = this.state.sortedMovies.slice()
-        newSuggestions.splice(index, 1)
-        this.setState({
-            sortedMovies: newSuggestions
+        const movieToRemove = newSuggestions.splice(index, 1)
+
+        const movie_id = movieToRemove[0].movie_id
+
+        const movieToIgnore = {
+            user_id: this.props.match.params.user_id,
+            movie_id: movie_id,
+            ignore: reason
+        }
+
+        fetch(`${API_BASE_URL}/ignore/${movieToIgnore.user_id}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "authorization": `bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(movieToIgnore)
+        })
+        .then(res => {
+            return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        })
+        .then(id => {
+            this.setState({
+                sortedMovies: newSuggestions
+            })
+        })
+        .catch(error => {
+            this.setState({
+                errorPopUp: {status:true, erorr: error.error}
+            })
         })
     }
 
@@ -62,7 +106,7 @@ class SuggestionsList extends Component {
         })
         .then(() => {
         this.popUpTimer()
-        this.handleRemoveMovie(index)
+        this.handleRemoveMovie(index, 'watched_it')
         })
     }
 
@@ -94,13 +138,20 @@ class SuggestionsList extends Component {
             ? <ConfirmReviewPopUp 
                 movie={this.state.confirmReview.movie} 
                 props={this.props}
+                user_id={this.props.match.params.user_id}
                 removeReviewPopup={this.removeReviewPopup}/>
+            : ''
+            
+        const errorPopUp = this.state.errorPopUp.status
+            ? <PopUp message={this.state.errorPopUp.error}/>
             : ''
 
         return (
             <div className="suggestions-list">
+                <ErrorMessage errorMessage={this.state.error} />
                 {watchedItPopup}
                 {movies}
+                {errorPopUp}
             </div>
         )
     }

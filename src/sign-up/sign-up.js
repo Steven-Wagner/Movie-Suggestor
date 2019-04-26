@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import { users } from '../dataModel/fakeData';
 import ErrorMessage from '../commonComponents/error-message'
+import {API_BASE_URL} from '../config'
+import TokenService from '../services/token-services'
 
 class Signup extends Component {
 
@@ -56,17 +58,35 @@ class Signup extends Component {
             })
         }
         else {
-            console.log('form submitted')
+
             const newUser = {
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
+                first_name: this.state.firstName,
+                last_name: this.state.lastName,
                 username: this.state.username,
                 password: this.state.password,
                 bio: this.state.bio,
-                friends: []
             }
-            this.props.addUser(newUser)
-            this.props.goToHome(newUser.username)
+
+            fetch(`${API_BASE_URL}/signup`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(newUser)
+            }).then(res => {
+                return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+            }).then(res => {
+                TokenService.saveAuthToken(res.authToken)
+    
+                this.props.goToHome(res.user_id)
+            })
+            .catch(error => {
+                this.setState({
+                    error: error.error
+                })
+            })
         }
     }
     

@@ -1,4 +1,7 @@
 import React , {Component} from 'react'
+import ErrorMessage from '../commonComponents/error-message'
+import {API_BASE_URL} from '../config'
+import TokenService from '../services/token-services';
 
 class Login extends Component {
 
@@ -6,7 +9,8 @@ class Login extends Component {
         super(props)
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            error: ''
         }
     }
 
@@ -18,18 +22,48 @@ class Login extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        console.log('Send request to API')
-        this.props.goToHome(this.state.username)
+
+        //todo: add validation
+
+        const loginBody = {
+            username: this.state.username,
+            password: this.state.password
+        }
+        console.log('apiurl', API_BASE_URL)
+
+        fetch(`${API_BASE_URL}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify(loginBody)
+        })
+        .then(res => {
+            
+            return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        })
+        .then(res => {
+            TokenService.saveAuthToken(res.authToken)
+
+            this.props.goToHome(res.user_id)
+        })
+        .catch(res => {
+            this.setState({
+                error: res.error
+            })
+        })
     }
 
     render() {
         return (
-            <div>
                 <main role="main">
                     <section>
                         <header>
                             <h2>Login</h2>
                         </header>
+                        <ErrorMessage errorMessage={this.state.error}/>
                         <form onSubmit={this.handleSubmit}>
                         <label htmlFor="username">Username
                             <input onChange={this.handleChange} type="text" id="username"/>
@@ -42,7 +76,6 @@ class Login extends Component {
                         </form>
                     </section>
                 </main>
-            </div>
         )
     }
 }

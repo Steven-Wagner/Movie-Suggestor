@@ -7,10 +7,10 @@ class Homepage extends Component {
     render() {
         return (
             <div>
-                <Nav status="homepage" user={this.props.match.params.user}/>
+                <Nav status="homepage" user={this.props.match.params.user_id}/>
                 <main role="main">
                     <MainBanner/>
-                    <SuggestionsList user={this.props.match.params.user} movieSuggestions={this.props.movieSuggestions} users={this.props.users} {...this.props}/>     
+                    <SuggestionsList user={this.props.match.params.user} {...this.props}/>     
                 </main>
                 <footer>Footer</footer>
             </div>

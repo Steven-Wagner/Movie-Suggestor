@@ -3,26 +3,76 @@ import Nav from '../commonComponents/navigation';
 import SuggestedUser from './suggest-user/suggested-user'
 import {setStatePromise} from '../util/common';
 import PopUp from '../pop-up/pop-up';
+import {API_BASE_URL} from '../config'
+import TokenService from '../services/token-services';
+import ErrorMessage from '../commonComponents/error-message';
 
 class FriendSuggester extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            users: this.props.users,
-            followedPopUp: {status: false, newFriend: ''}
+            friendSuggestions: [],
+            followedPopUp: {status: false, newFriend: ''},
+            error: ''
         }
     }
 
     componentDidMount() {
-        this.props.findSuggestedFriends(this.props.match.params.user)
+        fetch(`${API_BASE_URL}/friend/suggestions/${this.props.match.params.user}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+        .then(res => {
+            return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        })
+        .then(friendSuggestions => {
+            this.setState({
+                friendSuggestions: friendSuggestions
+            })
+        })
+        .catch(error => {
+            this.setState({
+                error: error.error
+            })
+        })
     }
 
-    addNewFriend = (currentUser, newUser) => {
-        this.props.addFriend(currentUser, newUser)
-        setStatePromise(this, {followedPopUp: {status: true, newFriend: newUser}})
+    addNewFriend = (follower_id, friend_id, newFriendUsername) => {
+
+        const newFriendBody = {
+            follower_id: follower_id, 
+            friend_id: friend_id
+        }
+
+        fetch(`${API_BASE_URL}/friend/${follower_id}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                "authorization": `bearer ${TokenService.getAuthToken()}`
+            },
+            body: JSON.stringify(newFriendBody)
+        })
+        .then(res => {
+            return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+        })
         .then(() => {
-            this.popUpTimer()
+            this.removeFriendFromState(friend_id)
+            setStatePromise(this, {followedPopUp: {status: true, newFriend: newFriendUsername}})
+            .then(() => {
+                this.popUpTimer()
+            })
+        })
+        .catch(error => {
+            this.setState({
+                error: error.error
+            })
         })
     }
 
@@ -34,9 +84,18 @@ class FriendSuggester extends Component {
         }, 5000)
     }
 
+    removeFriendFromState = (friend_id) => {
+        const newFriendSuggestions = this.state.friendSuggestions.filter(userData => {
+            return userData.user_id !== friend_id
+        })
+        this.setState({
+            friendSuggestions: newFriendSuggestions
+        })
+    }
+
     render() {
 
-        const friendSuggestions = this.props.suggestedFriends.map((user, i) => {
+        let friendSuggestionsList = this.state.friendSuggestions.map((user, i) => {
             return <SuggestedUser
                         updateSuggestedFriends={this.updateSuggestedFriends} 
                         currentUser={this.props.match.params.user} 
@@ -44,6 +103,10 @@ class FriendSuggester extends Component {
                         user={user} 
                         key={i}/>
         })
+
+        if (friendSuggestionsList.length === 0) {
+            friendSuggestionsList = <p>No suggestions. Try reviewing more movies to get more suggestions.</p>
+        }
 
         const popUp = this.state.followedPopUp.status ? <PopUp 
                                                             message={`${this.state.followedPopUp.newFriend} has been added as a friend and your movie suggestions have been updated!`}/> : "";
@@ -57,7 +120,8 @@ class FriendSuggester extends Component {
                         <h1>Friend Suggestions</h1>
                     </header>
                     <div>
-                        {friendSuggestions}
+                        <ErrorMessage errorMessage={this.state.error} />
+                        {friendSuggestionsList}
                     </div>
                 </main>
                 <footer>Footer</footer>

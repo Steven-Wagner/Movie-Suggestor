@@ -3,13 +3,16 @@ import ErrorMessage from '../commonComponents/error-message';
 import {setStatePromise} from '../util/common';
 import PopUp from '../pop-up/pop-up'
 import Nav from '../commonComponents/navigation';
+import {API_BASE_URL} from '../config'
+import TokenService from '../services/token-services'
+import UpdateReviewPopUp from  '../pop-up/updateReviewPopUp';
 
 class ReviewMovie extends Component {
 
     constructor(props) {
         super(props)
 
-        let movieToReview;
+        let movieToReview = '';
         if (this.props.match.params.movie) {
             movieToReview = this.props.match.params.movie
         }
@@ -18,7 +21,8 @@ class ReviewMovie extends Component {
             title: movieToReview,
             stars: 1,
             error: '',
-            reviewSubmitedPopUp: {status: false, message: ''}
+            reviewSubmitedPopUp: {status: false, message: ''},
+            updateReviewPopUp: {status: false, message: '', review: '', movie_id: ''}
         }
 
         this.timeoutHandle = 0
@@ -28,11 +32,11 @@ class ReviewMovie extends Component {
         clearTimeout(this.timeoutHandle)
     }
 
-    popUpTimer = () => {
+    popUpTimer = (popUpToBeTimed) => {
         clearTimeout(this.timeoutHandle)
         this.timeoutHandle = setTimeout(() => {
             this.setState({
-                reviewSubmitedPopUp: {status: false, message: ''}
+                [popUpToBeTimed]: {status: false, message: ''}
             })
             this.timeoutHandle = 0
         }, 5000)
@@ -58,10 +62,11 @@ class ReviewMovie extends Component {
             fetch(`https://www.omdbapi.com/?i=${process.env.REACT_APP_OMDB_API_KEY}&t=${urlFormatedTitle}`, {
             })
             .then(res => {
-                return res.json()
+                return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
             })
             .then(jres => {
-                console.log(jres.Title)
                 if (jres.Response === "False") {
                     errorMes = jres.Error
                 }
@@ -73,11 +78,15 @@ class ReviewMovie extends Component {
                 return jres
             })
             .then(jres => {
-                console.log('erroe', errorMes)
                 return setStatePromise(this, {error: errorMes})
                 .then(() => jres);
             })
             .then(this.submitReview)
+            .catch(error => {
+                this.setState({
+                    error: error.error
+                })
+            })
         }
     }
 
@@ -86,23 +95,60 @@ class ReviewMovie extends Component {
         if(!this.state.error) {
             const newReview = {
                 title: this.state.title,
-                rating: this.state.stars,
-                releaseDate: jres.Year,
-                img: jres.Poster
+                star_rating: this.state.stars,
+                user_id: this.props.match.params.user
             }
-            const username = this.props.match.params.user
 
-            this.props.addNewReview(username, newReview)
+            const user_id = this.props.match.params.user
 
-            setStatePromise(this, {
-                reviewSubmitedPopUp: {status: true, message: `${this.state.title} has been added to your reviews!`}
+            fetch(`${API_BASE_URL}/review/${user_id}`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "authorization": `bearer ${TokenService.getAuthToken()}`
+                },
+                body: JSON.stringify(newReview)
+            })
+            .then(res => {
+            return (!res.ok)
+                ? res.json().then(e => Promise.reject(e))
+                : res.json()
+            })
+            .then(res => {
+                if (this.props.match.params.movie) {
+                    window.close()
+                }
+                setStatePromise(this, {
+                    reviewSubmitedPopUp: {status: true, message: `${newReview.title} has been added to your reviews!`}
+                })
             })
             .then(() => {
-                this.popUpTimer()
+                this.popUpTimer('reviewSubmitedPopUp')
                 this.resetForm()
             })
-            }
+            .catch(error => {
+
+                if (error.error === "This movie has already been reviewed") {
+                    setStatePromise(this, {
+                        updateReviewPopUp: {
+                            status: true, 
+                            message: `${newReview.title} has already been reviewed. Would you like to update it with this new data?`,
+                            review: newReview,
+                            movie_id: error.movie_id}
+                    })
+                    .then(() => {
+                        this.popUpTimer('updateReviewPopUp')
+                    })
+                }
+                else {
+
+                    this.setState({
+                        error: error.error
+                    })
+                }
+            })
         }
+    }
 
     resetForm = () => {
         this.setState({
@@ -118,7 +164,12 @@ class ReviewMovie extends Component {
 
     handleCancel = (e) => {
         e.preventDefault()
-        this.props.history.goBack()
+        if (this.props.match.params.movie) {
+            window.close()
+        }
+        else {
+            this.props.history.goBack()
+        }
     }
 
     render() {
@@ -126,6 +177,14 @@ class ReviewMovie extends Component {
         const popUp = this.state.reviewSubmitedPopUp.status 
             ? <PopUp message={this.state.reviewSubmitedPopUp.message}/>
             : "";
+
+        const updateReviewPopUp = this.state.updateReviewPopUp.status
+            ? <UpdateReviewPopUp 
+                message={this.state.updateReviewPopUp.message} 
+                review={this.state.updateReviewPopUp.review} 
+                movie_id={this.state.updateReviewPopUp.movie_id}
+                component={this}/>
+            : '';
 
         return (
             <div>
@@ -136,11 +195,12 @@ class ReviewMovie extends Component {
                 </header>
                 <section>
                     {popUp}
+                    {updateReviewPopUp}
                     <ErrorMessage errorMessage={this.state.error}/>
                     <form id="movie-review-form" onSubmit={this.handleSubmit}>
                     <div className="form-section">
                         <label htmlFor="movie-title">Movie Title</label>
-                        <input value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="Star Wars: A New Hope" required/>
+                        <input value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="e.g. Shawshank Redemption" required/>
                     </div>
                     <div className="stars form-section">
                         <label htmlFor="stars-review">Stars(1-5)</label>

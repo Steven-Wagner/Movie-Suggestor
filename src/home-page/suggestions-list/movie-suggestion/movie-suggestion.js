@@ -19,10 +19,11 @@ export default function MovieSuggestion(props) {
     return (
         <section>
             <header>
-                <h2>{props.movieData.title}</h2>
+                <a href={`https://www.imdb.com/title/${props.movieData.imdb_id}`} target="_blank" rel="noopener noreferrer"><h2>{props.movieData.title}</h2></a>
                 <img src={props.movieData.img} alt={`${props.movieData.title} poster`}/>
-                <p>{props.movieData.releaseDate}</p>
-                <StarRating rating={props.movieData.rating}/>
+                <p>Directed by: {props.movieData.director}</p>
+                <p>{props.movieData.release_year}</p>
+                <StarRating rating={props.movieData.avg}/>
             </header>
             <button className="suggestion-options" onClick={() => props.handleRemoveMovie(props.index)}>Not Interested</button>
             <button className="suggestion-options" onClick={() => props.handleWatchedIt(props.index, props.movieData.title)}>Watched It</button>
