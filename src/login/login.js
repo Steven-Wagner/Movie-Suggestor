@@ -29,7 +29,6 @@ class Login extends Component {
             username: this.state.username,
             password: this.state.password
         }
-        console.log('apiurl', API_BASE_URL)
 
         fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",

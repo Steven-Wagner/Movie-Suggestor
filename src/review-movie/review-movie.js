@@ -91,7 +91,6 @@ class ReviewMovie extends Component {
     }
 
     submitReview = jres => {
-        console.log('state error', this.state.error)
         if(!this.state.error) {
             const newReview = {
                 title: this.state.title,

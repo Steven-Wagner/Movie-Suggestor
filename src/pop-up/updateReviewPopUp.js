@@ -1,6 +1,7 @@
 import React from 'react';
 import TokenService from '../services/token-services';
 import {API_BASE_URL} from '../config'
+import {setStatePromise} from '../util/common';
 
 export default function PopUp(props) {
     return (
@@ -31,30 +32,36 @@ function updateReview(reviewInfo, movie_id, component) {
         star_rating: reviewInfo.star_rating
     }
 
-    // fetch(`${API_BASE_URL}/review/${user_id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //         "Content-type": "application/json",
-    //         "authorization": `bearer ${TokenService.getAuthToken()}`
-    //     },
-    //     body: JSON.stringify(updateBody)
-    // })
-    // .then(res => {
-    // return (!res.ok)
-    //     ? res.json().then(e => Promise.reject(e))
-    //     : res.json()
-    // })
-    // .then(res => {
-        closePopUpReview(component)
-    // })
-    // .catch(error =>{
-    //     component.setState({
-    //         error: error.error
-    //     })
-    //     .then(() => {
-    //         closePopUpReview(component)
-    //     })
-    // })
+    fetch(`${API_BASE_URL}/review/${user_id}`, {
+        method: "PATCH",
+        headers: {
+            "content-type": "application/json",
+            "authorization": `bearer ${TokenService.getAuthToken()}`
+        },
+        body: JSON.stringify(updateBody)
+    })
+    .then(res => {
+    return (!res.ok)
+        ? res.json().then(e => Promise.reject(e))
+        : res.json()
+    })
+    .then(res => {
+        setStatePromise(component,{
+            error: 'Review updated'
+        })
+        .then(() => {
+            closePopUpReview(component)
+        })
+    })
+    .catch(error =>{
+        //this won't work for 500 errors
+        setStatePromise(component,{
+            error: error.error
+        })
+        .then(() => {
+            closePopUpReview(component)
+        })
+    })
 
 }
 

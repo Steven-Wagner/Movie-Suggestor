@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { users } from '../dataModel/fakeData';
 import ErrorMessage from '../commonComponents/error-message'
 import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services'
@@ -36,17 +35,10 @@ class Signup extends Component {
         else if (this.state.username.length === 0) {
             error = 'Username is required'
         }
-        else if (this.userAlreadyExists(this.state.username)) {
-            error = 'Username is already taken'
-        }
         else if (this.state.password.length < 6) {
             error = 'password must be 6 or more characters in length'
         }
         return error
-    }
-
-    userAlreadyExists= userToCheck => {
-        return users.find(user =>  user.username === userToCheck)
     }
 
     handleSubmit= e => {
