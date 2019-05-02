@@ -36,7 +36,7 @@ class SuggestionsList extends Component {
         })
         .catch(error => {
             this.setState({
-                error: error.error
+                error: error
             })
         })
     }
@@ -83,7 +83,7 @@ class SuggestionsList extends Component {
         })
         .catch(error => {
             this.setState({
-                errorPopUp: {status:true, erorr: error.error}
+                errorPopUp: {status:true, erorr: error.message}
             })
         })
     }
@@ -147,8 +147,8 @@ class SuggestionsList extends Component {
             : ''
 
         return (
-            <div className="suggestions-list">
-                <ErrorMessage errorMessage={this.state.error} />
+            <div className="suggestions-list remote-edge">
+                <ErrorMessage error={this.state.error} />
                 {watchedItPopup}
                 {movies}
                 {errorPopUp}

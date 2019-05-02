@@ -52,11 +52,11 @@ class Signup extends Component {
         else {
 
             const newUser = {
-                first_name: this.state.firstName,
-                last_name: this.state.lastName,
-                username: this.state.username,
-                password: this.state.password,
-                bio: this.state.bio,
+                first_name: this.state.firstName.trim(),
+                last_name: this.state.lastName.trim(),
+                username: this.state.username.trim(),
+                password: this.state.password.trim(),
+                bio: this.state.bio.trim(),
             }
 
             fetch(`${API_BASE_URL}/signup`, {
@@ -76,7 +76,7 @@ class Signup extends Component {
             })
             .catch(error => {
                 this.setState({
-                    error: error.error
+                    error: error
                 })
             })
         }
@@ -86,11 +86,11 @@ class Signup extends Component {
 
         return (
             <div>
-                <header>
-                    <h1>Sign-up</h1>
+                <header className="sign-up-header">
+                    <h1 className="black-back">Sign-up</h1>
                 </header>
-                <section>
-                    <ErrorMessage errorMessage={this.state.error}/>
+                <section className="remote-edge">
+                    <ErrorMessage error={this.state.error}/>
                     <form onSubmit={this.handleSubmit} className='signup-form'>
                         <div>
                             <label htmlFor="first-name">First name</label>
@@ -112,8 +112,8 @@ class Signup extends Component {
                             <label htmlFor="bio">Bio</label>
                             <textarea onChange={(e) => this.handleChange(e)} name='bio' id='bio' placeholder="Tell others about your favorite movies and what you like."/>
                         </div>
-                        <button type='submit'>Sign Up</button>
-                        <button onClick={this.props.clickCancel}>Cancel</button>
+                        <button className="remote-button" type='submit'>Sign Up</button>
+                        <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
                     </form>
                 </section>
             </div>

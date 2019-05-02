@@ -37,7 +37,7 @@ class FriendSuggester extends Component {
         })
         .catch(error => {
             this.setState({
-                error: error.error
+                error: error
             })
         })
     }
@@ -71,7 +71,7 @@ class FriendSuggester extends Component {
         })
         .catch(error => {
             this.setState({
-                error: error.error
+                error: error
             })
         })
     }
@@ -105,7 +105,7 @@ class FriendSuggester extends Component {
         })
 
         if (friendSuggestionsList.length === 0) {
-            friendSuggestionsList = <p>No suggestions. Try reviewing more movies to get more suggestions.</p>
+            friendSuggestionsList = <p className="no-listings-hints">No suggestions. Try reviewing more movies to get more suggestions.</p>
         }
 
         const popUp = this.state.followedPopUp.status ? <PopUp 
@@ -113,14 +113,14 @@ class FriendSuggester extends Component {
 
         return (
             <div>
-                <Nav user={this.props.match.params.user}/>
+                <Nav user={this.props.match.params.user} status={'friend-suggestions-page'}/>
                 <main role="main">
                     {popUp}
-                    <header role="banner">
+                    <header role="banner" className="friend-suggestions">
                         <h1>Friend Suggestions</h1>
                     </header>
-                    <div>
-                        <ErrorMessage errorMessage={this.state.error} />
+                    <div className="friend-suggestions-list remote-edge">
+                        <ErrorMessage error={this.state.error} />
                         {friendSuggestionsList}
                     </div>
                 </main>

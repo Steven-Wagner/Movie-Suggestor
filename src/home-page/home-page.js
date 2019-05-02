@@ -12,7 +12,7 @@ class Homepage extends Component {
                     <MainBanner/>
                     <SuggestionsList user={this.props.match.params.user} {...this.props}/>     
                 </main>
-                <footer>Footer</footer>
+                <footer className="remote-edge">Footer</footer>
             </div>
         )
     }

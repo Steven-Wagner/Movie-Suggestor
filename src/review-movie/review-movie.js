@@ -6,6 +6,7 @@ import Nav from '../commonComponents/navigation';
 import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services'
 import UpdateReviewPopUp from  '../pop-up/updateReviewPopUp';
+import {toTitleCase} from '../util/titleCase';
 
 class ReviewMovie extends Component {
 
@@ -48,6 +49,12 @@ class ReviewMovie extends Component {
         })
     }
 
+    addToTitleInput = suggestedTitle => {
+        this.setState({
+            title: suggestedTitle
+        })
+    }
+
     validateForm = (e) => {
         let errorMes = '';
         
@@ -55,10 +62,12 @@ class ReviewMovie extends Component {
             errorMes = 'Title is required'
             this.setState({
                 error: errorMes
-            }, this.submitReview())
+            }, /*this.submitReview()*/)
         }
         else {
-            const urlFormatedTitle = this.state.title.replace(/' '/g, '+')
+            
+            const urlFormatedTitle = toTitleCase(this.state.title).trim().replace(/' '/g, '+')
+            
             fetch(`https://www.omdbapi.com/?i=${process.env.REACT_APP_OMDB_API_KEY}&t=${urlFormatedTitle}`, {
             })
             .then(res => {
@@ -68,32 +77,34 @@ class ReviewMovie extends Component {
             })
             .then(jres => {
                 if (jres.Response === "False") {
-                    errorMes = jres.Error
+                    throw new Error(jres.Error)
                 }
-                if (jres.Title !== this.state.title) {
+                if (jres.Title !== urlFormatedTitle) {
                     if (jres.Title) {
-                        errorMes = `Title not found. Did you mean ${jres.Title}?`
+
+                        const titleNotFoundError = new Error(`Title not found. Did you mean`)
+                        titleNotFoundError.button = jres.Title
+                        throw titleNotFoundError;
                     }
                 }
                 return jres
             })
-            .then(jres => {
-                return setStatePromise(this, {error: errorMes})
-                .then(() => jres);
+            .then(() => {
+                this.submitReview(urlFormatedTitle)
             })
-            .then(this.submitReview)
             .catch(error => {
                 this.setState({
-                    error: error.error
+                    error: error
+
                 })
             })
         }
     }
 
-    submitReview = jres => {
+    submitReview = title => {
         if(!this.state.error) {
             const newReview = {
-                title: this.state.title,
+                title: title,
                 star_rating: this.state.stars,
                 user_id: this.props.match.params.user
             }
@@ -127,7 +138,7 @@ class ReviewMovie extends Component {
             })
             .catch(error => {
 
-                if (error.error === "This movie has already been reviewed") {
+                if (error.message === "This movie has already been reviewed") {
                     setStatePromise(this, {
                         updateReviewPopUp: {
                             status: true, 
@@ -142,7 +153,7 @@ class ReviewMovie extends Component {
                 else {
 
                     this.setState({
-                        error: error.error
+                        error: error
                     })
                 }
             })
@@ -158,7 +169,11 @@ class ReviewMovie extends Component {
 
     handleSubmit = e => {
         e.preventDefault()
-        this.validateForm(e)
+
+        this.setState({
+            error: ''
+        }, () => 
+        this.validateForm(e))
     }
 
     handleCancel = (e) => {
@@ -188,25 +203,25 @@ class ReviewMovie extends Component {
         return (
             <div>
                 <main role="main">
-                <Nav user={this.props.match.params.user}/>
-                <header>
-                    <h1>New Review</h1>
+                <Nav user={this.props.match.params.user} status={'review-page'}/>
+                <header className="new-review-header">
+                    <h2>New Review</h2>
                 </header>
-                <section>
+                <section className="remote-edge">
                     {popUp}
                     {updateReviewPopUp}
-                    <ErrorMessage errorMessage={this.state.error}/>
+                    <ErrorMessage error={this.state.error} addToTitleInput={this.addToTitleInput}/>
                     <form id="movie-review-form" onSubmit={this.handleSubmit}>
                     <div className="form-section">
                         <label htmlFor="movie-title">Movie Title</label>
-                        <input value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="e.g. Shawshank Redemption" required/>
+                        <input className="review-title review-input" value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="e.g. Shawshank Redemption" required/>
                     </div>
                     <div className="stars form-section">
                         <label htmlFor="stars-review">Stars(1-5)</label>
-                        <input value={this.state.stars} onChange={this.changeForm} id="stars" type="number" name="stars" placeholder="1" min="1" max="5"/>
+                        <input className="review-input" value={this.state.stars} onChange={this.changeForm} id="stars" type="number" name="stars" placeholder="1" min="1" max="5"/>
                     </div>
-                    <button type="submit">Submit</button>
-                    <button  type="button" onClick={(e) => this.handleCancel(e)}>Go Back</button>
+                    <button className="remote-button" type="submit">Submit</button>
+                    <button className="remote-button" type="button" onClick={(e) => this.handleCancel(e)}>Go Back</button>
                     </form>
                 </section>
                 </main>

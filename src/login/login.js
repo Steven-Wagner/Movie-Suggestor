@@ -2,6 +2,7 @@ import React , {Component} from 'react'
 import ErrorMessage from '../commonComponents/error-message'
 import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services';
+import {setStatePromise} from '../util/common';
 
 class Login extends Component {
 
@@ -23,34 +24,40 @@ class Login extends Component {
     handleSubmit = e => {
         e.preventDefault()
 
+        setStatePromise(this, {
+            error: ''
+        })
+        .then(() => {
+
         //todo: add validation
 
-        const loginBody = {
-            username: this.state.username,
-            password: this.state.password
-        }
+            const loginBody = {
+                username: this.state.username.trim(),
+                password: this.state.password.trim()
+            }
 
-        fetch(`${API_BASE_URL}/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(loginBody)
-        })
-        .then(res => {
-            
-            return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-        })
-        .then(res => {
-            TokenService.saveAuthToken(res.authToken)
+            fetch(`${API_BASE_URL}/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(loginBody)
+            })
+            .then(res => {
+                
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            })
+            .then(res => {
+                TokenService.saveAuthToken(res.authToken)
 
-            this.props.goToHome(res.user_id)
-        })
-        .catch(res => {
-            this.setState({
-                error: res.error
+                this.props.goToHome(res.user_id)
+            })
+            .catch(error => {
+                this.setState({
+                    error: error
+                })
             })
         })
     }
@@ -62,7 +69,7 @@ class Login extends Component {
                         <header>
                             <h2>Login</h2>
                         </header>
-                        <ErrorMessage errorMessage={this.state.error}/>
+                        <ErrorMessage error={this.state.error}/>
                         <form onSubmit={this.handleSubmit}>
                         <label htmlFor="username">Username
                             <input onChange={this.handleChange} type="text" id="username"/>
