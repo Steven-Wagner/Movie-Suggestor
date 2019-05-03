@@ -11,8 +11,12 @@
           "dest": "/index.html"
         }
     ],
-    "env": {
-        "REACT_APP_OMDB_API_KEY": "@omdb_api_key",
+    "build": {
+      "env": {
         "REACT_APP_BASE_URL": "https://arcane-caverns-82267.herokuapp.com/api"
+      }
+    },
+    "env": {
+        "REACT_APP_OMDB_API_KEY": "@omdb_api_key"
       }  
 }
