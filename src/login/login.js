@@ -36,6 +36,8 @@ class Login extends Component {
                 password: this.state.password.trim()
             }
 
+            console.log('reactapp', process.env.REACT_APP_BASE_URL)
+
             fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
                 headers: {
