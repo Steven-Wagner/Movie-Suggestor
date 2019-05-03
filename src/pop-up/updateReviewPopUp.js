@@ -49,16 +49,17 @@ function updateReview(reviewInfo, movie_id, component) {
     })
     .then(res => {
         setStatePromise(component,{
-            error: 'Review updated'
+            reviewSubmitedPopUp:{status: true,  message:'Review updated'}
         })
         .then(() => {
             closePopUpReview(component)
+            component.popUpTimer('reviewSubmitedPopUp')
         })
     })
     .catch(error =>{
         //this won't work for 500 errors
         setStatePromise(component,{
-            error: error.error
+            error: error.message
         })
         .then(() => {
             closePopUpReview(component)
