@@ -36,8 +36,6 @@ class Login extends Component {
                 password: this.state.password.trim()
             }
 
-            console.log('reactapp', process.env)
-
             fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
                 headers: {
@@ -79,8 +77,8 @@ class Login extends Component {
                         <label onChange={this.handleChange} htmlFor="password">Password
                             <input type="text" id="password"/>
                         </label>
-                        <button type="submit">Submit</button>
-                        <button onClick={this.props.clickCancel}>Cancel</button>
+                        <button className="remote-button" type="submit">Submit</button>
+                        <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
                         </form>
                     </section>
                 </main>
