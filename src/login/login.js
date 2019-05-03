@@ -3,6 +3,7 @@ import ErrorMessage from '../commonComponents/error-message'
 import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services';
 import {setStatePromise} from '../util/common';
+import Nav from '../commonComponents/navigation';
 
 class Login extends Component {
 
@@ -65,7 +66,8 @@ class Login extends Component {
     render() {
         return (
                 <main role="main">
-                    <section>
+                    <Nav status="login"/>
+                    <section className="logIn remote-edge">
                         <header>
                             <h2>Login</h2>
                         </header>
@@ -75,7 +77,7 @@ class Login extends Component {
                             <input onChange={this.handleChange} type="text" id="username"/>
                         </label>
                         <label onChange={this.handleChange} htmlFor="password">Password
-                            <input type="text" id="password"/>
+                            <input type="password" id="password"/>
                         </label>
                         <button className="remote-button" type="submit">Submit</button>
                         <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>

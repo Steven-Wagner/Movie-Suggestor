@@ -34,7 +34,9 @@ export default function Nav(props) {
         "landing-page": [signUp, logIn],
         "homepage": [friendSuggestions, reviewMovie, logOut],
         "review-page": [homePage, friendSuggestions, logOut],
-        "friend-suggestions-page": [homePage, reviewMovie, logOut]
+        "friend-suggestions-page": [homePage, reviewMovie, logOut],
+        "login": [signUp],
+        "signUp": [logIn]
     }
 
     const currentNavLinks = navLinksToInclude[props.status]

@@ -7,14 +7,16 @@ export default function PopUp(props) {
     return (
         <div className="pop-up">
             <p>{props.message}</p>
-            <button onClick={() => 
+            <button className="remote-button" 
+                onClick={() => 
                 updateReview(
                     props.review, 
                     props.movie_id,
                     props.component)}>
                 Yes
             </button>
-            <button onClick={() => 
+            <button className="remote-button" 
+                onClick={() => 
                 closePopUpReview(props.component)}>
                 No
             </button>

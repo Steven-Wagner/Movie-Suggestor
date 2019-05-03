@@ -188,14 +188,13 @@ header {
   width: 100%;
 }
 
-.friend-suggestions-list, .movie-suggestion, .suggestions-list {
-  background-color: rgba(130,134,135,1);
+.friend-suggestions-list, .movie-suggestion, .suggestions-list, .logIn {
   background-color: -moz-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
   background-color: -webkit-gradient(left top, right top, color-stop(0%, rgba(130,134,135,1)), color-stop(50%, rgba(104,127,136,1)), color-stop(100%, rgba(61,77,82,1)));
   background-color: -webkit-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
   background-color: -o-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
   background-color: -ms-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
-  background-color: linear-gradient(to right, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
+  background: linear-gradient(to right, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#828687', endColorstr='#3d4d52', GradientType=1 );
 }
 
@@ -366,7 +365,7 @@ textarea {
   }
 
   nav {
-    display: flex;
+    justify-content: flex-end;
     padding: 10px 20%;
   }
 

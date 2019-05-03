@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ErrorMessage from '../commonComponents/error-message'
 import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services'
+import Nav from '../commonComponents/navigation';
 
 class Signup extends Component {
 
@@ -86,6 +87,7 @@ class Signup extends Component {
 
         return (
             <div>
+                <Nav status="signUp"/>
                 <header className="sign-up-header">
                     <h1 className="black-back">Sign-up</h1>
                 </header>

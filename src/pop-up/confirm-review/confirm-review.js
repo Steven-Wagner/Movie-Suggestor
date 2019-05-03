@@ -25,8 +25,8 @@ export default class ConfirmReviewPopUp extends Component {
         return (
             <div className={"confirm-review-popup"} hidden={this.state.hidden}>
                 <p>Would you like to review {this.props.movie}</p>
-                <button type="button" onClick={() => this.handleReviewIt()}>Review It</button>
-                <button type="button" onClick={this.handleMaybeLater}>Maybe Later</button>
+                <button className="remote-button" type="button" onClick={() => this.handleReviewIt()}>Review It</button>
+                <button className="remote-button" type="button" onClick={this.handleMaybeLater}>Maybe Later</button>
             </div>
         )
     }
