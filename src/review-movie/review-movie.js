@@ -93,10 +93,17 @@ class ReviewMovie extends Component {
                 this.submitReview(urlFormatedTitle)
             })
             .catch(error => {
-                this.setState({
-                    error: error
-
-                })
+                if (error.Error === "Request limit reached!") {
+                    const limitReachedError = new Error("Request limit reached! Please try again tomorow :(")
+                    this.setState({
+                        error: limitReachedError
+                    })
+                }
+                else {
+                    this.setState({
+                        error: error
+                    })
+                }
             })
         }
     }
