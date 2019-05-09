@@ -32,7 +32,5 @@ export function toTitleCase(title) {
  }
  
  return str;
-    
-    return str;
 
 }
