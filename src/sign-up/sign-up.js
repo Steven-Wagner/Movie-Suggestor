@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import ErrorMessage from '../commonComponents/error-message'
-import {API_BASE_URL} from '../config'
-import TokenService from '../services/token-services'
+import ErrorMessage from '../commonComponents/error-message';
+import {API_BASE_URL} from '../config';
+import TokenService from '../services/token-services';
 import Nav from '../commonComponents/navigation';
+import Footer from '../commonComponents/footer';
 
 class Signup extends Component {
 
@@ -118,6 +119,7 @@ class Signup extends Component {
                         <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
                     </form>
                 </section>
+                <Footer/>
             </div>
         )
     }

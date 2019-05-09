@@ -4,6 +4,7 @@ import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services';
 import {setStatePromise} from '../util/common';
 import Nav from '../commonComponents/navigation';
+import Footer from '../commonComponents/footer';
 
 class Login extends Component {
 
@@ -83,6 +84,7 @@ class Login extends Component {
                         <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
                         </form>
                     </section>
+                    <Footer/>
                 </main>
         )
     }

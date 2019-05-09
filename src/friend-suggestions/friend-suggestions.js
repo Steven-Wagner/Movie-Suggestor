@@ -6,6 +6,7 @@ import PopUp from '../pop-up/pop-up';
 import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services';
 import ErrorMessage from '../commonComponents/error-message';
+import Footer from '../commonComponents/footer';
 
 class FriendSuggester extends Component {
 
@@ -124,7 +125,7 @@ class FriendSuggester extends Component {
                         {friendSuggestionsList}
                     </div>
                 </main>
-                <footer>Footer</footer>
+                <Footer/>
             </div>
         )
     }

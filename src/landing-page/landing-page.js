@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
 import Nav from '../commonComponents/navigation'
 import MainBanner from '../commonComponents/main-banner';
+import Footer from '../commonComponents/footer';
 
 class LandingPage extends Component {
     render() {
@@ -32,7 +33,7 @@ class LandingPage extends Component {
                     </header>
                 </section>
             </main>
-            <footer>Footer</footer>
+            <Footer/>
         </div>
     )
     }

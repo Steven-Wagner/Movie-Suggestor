@@ -7,6 +7,7 @@ import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services'
 import UpdateReviewPopUp from  '../pop-up/updateReviewPopUp';
 import {toTitleCase} from '../util/titleCase';
+import Footer from '../commonComponents/footer';
 
 class ReviewMovie extends Component {
 
@@ -232,6 +233,7 @@ class ReviewMovie extends Component {
                     </form>
                 </section>
                 </main>
+                <Footer/>
             </div>
         )
     }

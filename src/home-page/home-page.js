@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import Nav from '../commonComponents/navigation';
 import MainBanner from '../commonComponents/main-banner';
-import SuggestionsList from './suggestions-list/suggestions-list'
+import SuggestionsList from './suggestions-list/suggestions-list';
+import Footer from '../commonComponents/footer';
 
 class Homepage extends Component {
     render() {
@@ -12,7 +13,7 @@ class Homepage extends Component {
                     <MainBanner/>
                     <SuggestionsList user={this.props.match.params.user} {...this.props}/>     
                 </main>
-                <footer className="remote-edge">Footer</footer>
+                <Footer/>
             </div>
         )
     }
