@@ -8,6 +8,7 @@ import TokenService from '../services/token-services'
 import UpdateReviewPopUp from  '../pop-up/updateReviewPopUp';
 import {toTitleCase} from '../util/titleCase';
 import Footer from '../commonComponents/footer';
+import Autocomplete from '../util/autocompleteMovies';
 
 class ReviewMovie extends Component {
 
@@ -47,6 +48,12 @@ class ReviewMovie extends Component {
     changeForm = e => {
         this.setState({
             [e.target.id]: e.target.value
+        })
+    }
+
+    changeTitleForm = title => {
+        this.setState({
+            title: title
         })
     }
 
@@ -301,7 +308,8 @@ class ReviewMovie extends Component {
                     <form id="movie-review-form" onSubmit={this.handleSubmit}>
                     <div className="form-section">
                         <label htmlFor="movie-title">Movie Title</label>
-                        <input className="review-title review-input" value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="e.g. Shawshank Redemption" required/>
+                        <Autocomplete component={this} currentInput={this.state.title}/>
+                        {/* <input className="review-title review-input" value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="e.g. Shawshank Redemption" required/> */}
                     </div>
                     <div className="stars form-section">
                         <label htmlFor="stars-review">Stars(1-5)</label>

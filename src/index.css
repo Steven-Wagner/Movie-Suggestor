@@ -277,6 +277,47 @@ input {
   box-shadow: inset -2px -1px 3px rgb(5, 137, 189);
 }
 
+.title-suggestions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.suggestions {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  /* max-height: 143px; */
+  overflow-y: auto;
+  padding-left: 0;
+  width: 50%;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+  background-color: rgba(4, 120, 165, 1);
+  color: rgba(242, 210, 152, 1);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.suggestions li {
+  padding: 0.5rem;
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
+}
+
+.title-suggest-img {
+  height: 50px;
+  padding: 0 15px;
+}
+
 #stars {
   width: 75px;
 }
