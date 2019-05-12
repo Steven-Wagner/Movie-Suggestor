@@ -11,8 +11,10 @@
           "dest": "/index.html"
         }
     ],
-    "env": {
+    "build": {
+      "env": {
         "REACT_APP_OMDB_API_KEY": "@omdb_api_key",
         "REACT_APP_BASE_URL": "@react_app_base_url"
-      }  
+      } 
+    } 
 }
