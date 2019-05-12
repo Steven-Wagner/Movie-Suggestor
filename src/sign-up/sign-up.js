@@ -27,6 +27,8 @@ class Signup extends Component {
 
     validateForm = () => {
         let error = '';
+
+        //can I use switch here?
         
         if (this.state.firstName.length === 0) {
             error = 'First name is required'
@@ -48,7 +50,7 @@ class Signup extends Component {
         const newError = this.validateForm()
         if (newError) {
             this.setState({
-                error: newError
+                error: {message: newError}
             })
         }
         else {
@@ -61,17 +63,8 @@ class Signup extends Component {
                 bio: this.state.bio.trim(),
             }
 
-            fetch(`${API_BASE_URL}/signup`, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(newUser)
-            }).then(res => {
-                return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-            }).then(res => {
+            this.fetchPostNewUser(newUser)
+            .then(res => {
                 TokenService.saveAuthToken(res.authToken)
     
                 this.props.goToHome(res.user_id)
@@ -82,6 +75,27 @@ class Signup extends Component {
                 })
             })
         }
+    }
+
+    fetchPostNewUser = newUser => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/signup`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(newUser)
+                }).then(res => {
+                    return (!res.ok)
+                    ? res.json().then(e => {reject(e)})
+                    : resolve(res.json())
+                })
+            }
+            catch(error) {
+                reject(error)
+            }
+        })
     }
     
     render() {
@@ -105,11 +119,11 @@ class Signup extends Component {
                         </div>
                         <div>
                             <label htmlFor="username">Username</label>
-                            <input onChange={(e) => this.handleChange(e)} type="text" name='username' id='username' />
+                            <input onChange={(e) => this.handleChange(e)} type="text" name='username' id='username' autoComplete='username'/>
                         </div>
                         <div>
                             <label htmlFor="password">Password</label>
-                            <input onChange={(e) => this.handleChange(e)} type="password" name='password' id='password' />
+                            <input onChange={(e) => this.handleChange(e)} type="password" name='password' id='password' autoComplete='new-password'/>
                         </div>
                         <div>
                             <label htmlFor="bio">Bio</label>

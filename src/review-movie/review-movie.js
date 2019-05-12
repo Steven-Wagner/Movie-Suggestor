@@ -21,7 +21,7 @@ class ReviewMovie extends Component {
 
         this.state = {
             title: movieToReview,
-            stars: 1,
+            stars: 3,
             error: '',
             reviewSubmitedPopUp: {status: false, message: ''},
             updateReviewPopUp: {status: false, message: '', review: '', movie_id: ''}
@@ -57,6 +57,50 @@ class ReviewMovie extends Component {
     }
 
     validateForm = (e) => {
+    //     return new Promise((resolve, reject) => {
+    //         try {
+    //             let errorMes = '';
+        
+    //             if (!this.state.title) {
+    //                 errorMes = 'Title is required'
+    //                 this.setState({
+    //                     error: errorMes
+    //                 }, /*this.submitReview()*/)
+    //             }
+    //             else {
+                    
+    //                 const urlFormatedTitle = toTitleCase(this.state.title).trim().replace(/' '/g, '+')
+
+    //                 this.fetchSingleMovieData(urlFormatedTitle)
+    //                 .then(movieData => {
+    //                     if (movieData.Title !== urlFormatedTitle) {
+    //                         if (movieData.Title) {
+
+    //                             const titleNotFoundError = new Error(`Title not found. Did you mean`)
+    //                             titleNotFoundError.button = movieData.Title
+    //                             throw titleNotFoundError;
+    //                         }
+    //                     }
+    //                     resolveObject(urlFormatedTitle)
+    //                 })
+    //             }
+    //         }
+    //         catch(error) {
+    //             if (error.Error === "Request limit reached!") {
+    //                 const limitReachedError = new Error("Request limit reached! Please try again tomorow :(")
+    //                 this.setState({
+    //                     error: limitReachedError
+    //                 }, resolve('false'))
+    //             }
+    //             else {
+    //                 console.log('errorshould be set to state', error)
+    //                 this.setState({
+    //                     error: error
+    //                 }, resolve('false'))
+    //             }
+    //         }
+    //     })
+    // }
         let errorMes = '';
         
         if (!this.state.title) {
@@ -68,27 +112,18 @@ class ReviewMovie extends Component {
         else {
             
             const urlFormatedTitle = toTitleCase(this.state.title).trim().replace(/' '/g, '+')
-            
-            fetch(`https://www.omdbapi.com/?i=${process.env.REACT_APP_OMDB_API_KEY}&t=${urlFormatedTitle}`, {
-            })
-            .then(res => {
-                return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-            })
-            .then(jres => {
-                if (jres.Response === "False") {
-                    throw new Error(jres.Error)
-                }
-                if (jres.Title !== urlFormatedTitle) {
-                    if (jres.Title) {
+
+            this.fetchSingleMovieData(urlFormatedTitle)
+            .then(movieData => {
+                if (movieData.Title !== urlFormatedTitle) {
+                    if (movieData.Title) {
 
                         const titleNotFoundError = new Error(`Title not found. Did you mean`)
-                        titleNotFoundError.button = jres.Title
+                        titleNotFoundError.button = movieData.Title
                         throw titleNotFoundError;
                     }
                 }
-                return jres
+                return urlFormatedTitle
             })
             .then(() => {
                 this.submitReview(urlFormatedTitle)
@@ -109,6 +144,31 @@ class ReviewMovie extends Component {
         }
     }
 
+    fetchSingleMovieData = urlFormatedTitle => {
+       return new Promise((resolve, reject) => {
+            try {
+                fetch(`https://www.omdbapi.com/?i=${process.env.REACT_APP_OMDB_API_KEY}&t=${urlFormatedTitle}`, {
+                    })
+                    .then(res => {
+                        return (!res.ok)
+                        ? res.json().then(e => reject(e))
+                        : res.json()
+                    })
+                    .then(jres => {
+                        if (jres.Response === "False") {
+                            throw new Error(jres.Error)
+                        }
+                        else {
+                            resolve(jres)
+                        }
+                    })
+                }
+            catch(error) {
+                reject(error)
+            }
+        })
+    }
+
     submitReview = title => {
         if(!this.state.error) {
             const newReview = {
@@ -119,26 +179,16 @@ class ReviewMovie extends Component {
 
             const user_id = this.props.match.params.user
 
-            fetch(`${API_BASE_URL}/review/${user_id}`, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                    "authorization": `bearer ${TokenService.getAuthToken()}`
-                },
-                body: JSON.stringify(newReview)
-            })
-            .then(res => {
-            return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-            })
+            this.fetchInsertNewReview(user_id, newReview)
             .then(res => {
                 if (this.props.match.params.movie) {
                     window.close()
                 }
-                setStatePromise(this, {
-                    reviewSubmitedPopUp: {status: true, message: `${newReview.title} has been added to your reviews!`}
-                })
+                else {
+                    setStatePromise(this, {
+                        reviewSubmitedPopUp: {status: true, message: `${newReview.title} has been added to your reviews!`}
+                    })
+                }
             })
             .then(() => {
                 this.popUpTimer('reviewSubmitedPopUp')
@@ -168,10 +218,33 @@ class ReviewMovie extends Component {
         }
     }
 
+    fetchInsertNewReview = (user_id, newReview) => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/review/${user_id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json",
+                        "authorization": `bearer ${TokenService.getAuthToken()}`
+                    },
+                    body: JSON.stringify(newReview)
+                })
+                .then(res => {
+                return (!res.ok)
+                    ? res.json().then(e => reject(e))
+                    : resolve(res.json())
+                })
+            }
+            catch(error) {
+                reject(error)
+            }
+        })
+    }
+
     resetForm = () => {
         this.setState({
             title: '',
-            stars: 1
+            stars: 3
         })
     }
 
@@ -181,7 +254,13 @@ class ReviewMovie extends Component {
         this.setState({
             error: ''
         }, () => 
-        this.validateForm(e))
+        this.validateForm(e)
+        // .then((urlFormatedTitle) => {
+        //     if (urlFormatedTitle !== 'false') {
+        //         this.submitReview(urlFormatedTitle)
+        //     }
+        // })
+        )
     }
 
     handleCancel = (e) => {

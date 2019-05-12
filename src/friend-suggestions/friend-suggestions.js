@@ -17,20 +17,12 @@ class FriendSuggester extends Component {
             followedPopUp: {status: false, newFriend: ''},
             error: ''
         }
+
+        this.timeoutHandle = 0
     }
 
     componentDidMount() {
-        fetch(`${API_BASE_URL}/friend/suggestions/${this.props.match.params.user}`, {
-            method: "GET",
-            headers: {
-                "Authorization": `bearer ${TokenService.getAuthToken()}`
-            }
-        })
-        .then(res => {
-            return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-        })
+        this.fetchFriendSuggestions()
         .then(friendSuggestions => {
             this.setState({
                 friendSuggestions: friendSuggestions
@@ -43,6 +35,31 @@ class FriendSuggester extends Component {
         })
     }
 
+    componentWillUnmount() {
+        clearTimeout(this.timeoutHandle)
+    }
+
+    fetchFriendSuggestions = () => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/friend/suggestions/${this.props.match.params.user}`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `bearer ${TokenService.getAuthToken()}`
+                    }
+                })
+                .then(res => {
+                    return (!res.ok)
+                        ? res.json().then(e => reject(e))
+                        : resolve(res.json())
+                })
+            }
+            catch(error) {
+                reject(error)
+            }
+        })
+    }
+
     addNewFriend = (follower_id, friend_id, newFriendUsername) => {
 
         const newFriendBody = {
@@ -50,19 +67,7 @@ class FriendSuggester extends Component {
             friend_id: friend_id
         }
 
-        fetch(`${API_BASE_URL}/friend/${follower_id}`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-                "authorization": `bearer ${TokenService.getAuthToken()}`
-            },
-            body: JSON.stringify(newFriendBody)
-        })
-        .then(res => {
-            return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-        })
+        this.fetchPostNewFriend(follower_id, newFriendBody)
         .then(() => {
             this.removeFriendFromState(friend_id)
             setStatePromise(this, {followedPopUp: {status: true, newFriend: newFriendUsername}})
@@ -77,11 +82,36 @@ class FriendSuggester extends Component {
         })
     }
 
+    fetchPostNewFriend = (follower_id, newFriendBody) => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/friend/${follower_id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json",
+                        "authorization": `bearer ${TokenService.getAuthToken()}`
+                    },
+                    body: JSON.stringify(newFriendBody)
+                })
+                .then(res => {
+                    return (!res.ok)
+                        ? res.json().then(e => reject(e))
+                        : resolve(res.json())
+                })
+            }
+            catch (error) {
+                reject(error)
+            }
+        })
+    }
+
     popUpTimer = () => {
-        setTimeout(() => {
+        clearTimeout(this.timeoutHandle)
+        this.timeoutHandle = setTimeout(() => {
             this.setState({
                 followedPopUp: {status: false, newFriend: ''}
             })
+            this.timeoutHandle = 0
         }, 5000)
     }
 
@@ -109,8 +139,10 @@ class FriendSuggester extends Component {
             friendSuggestionsList = <p className="no-listings-hints">No suggestions. Try reviewing more movies to get more suggestions.</p>
         }
 
-        const popUp = this.state.followedPopUp.status ? <PopUp 
-                                                            message={`${this.state.followedPopUp.newFriend} has been added as a friend and your movie suggestions have been updated!`}/> : "";
+        const popUp = this.state.followedPopUp.status 
+            ? <PopUp 
+                message={`${this.state.followedPopUp.newFriend} has been added as a friend and your movie suggestions have been updated!`}/> 
+            : "";
 
         return (
             <div>

@@ -1,6 +1,6 @@
 export function toTitleCase(title) {
 
-    var i, j, str, lowers, uppers, dashCapitals;
+    var i, j, str, lowers, uppers;
     str = title.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });

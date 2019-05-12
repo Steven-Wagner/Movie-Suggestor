@@ -30,37 +30,49 @@ class Login extends Component {
             error: ''
         })
         .then(() => {
+            this.submitLoginInfo()
+        })
+    }
 
-        //todo: add validation
+    submitLoginInfo = () => {
+        const loginBody = {
+            username: this.state.username.trim(),
+            password: this.state.password.trim()
+        }
 
-            const loginBody = {
-                username: this.state.username.trim(),
-                password: this.state.password.trim()
-            }
+        this.fetchPostLoginInfo(loginBody)
+        .then(authInfo => {
+            TokenService.saveAuthToken(authInfo.authToken)
 
-            fetch(`${API_BASE_URL}/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json"
-                },
-                body: JSON.stringify(loginBody)
+            this.props.goToHome(authInfo.user_id)
+        })
+        .catch(error => {
+            this.setState({
+                error: error
             })
-            .then(res => {
-                
-                return (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-            })
-            .then(res => {
-                TokenService.saveAuthToken(res.authToken)
+        })
+    }
 
-                this.props.goToHome(res.user_id)
-            })
-            .catch(error => {
-                this.setState({
-                    error: error
+    fetchPostLoginInfo = loginBody => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/auth/login`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(loginBody)
                 })
-            })
+                .then(res => {
+                    
+                    return (!res.ok)
+                        ? res.json().then(e => reject(e))
+                        : resolve(res.json())
+                })
+            }
+            catch(error) {
+                reject(error)
+            }
         })
     }
 
@@ -75,10 +87,10 @@ class Login extends Component {
                         <ErrorMessage error={this.state.error}/>
                         <form onSubmit={this.handleSubmit}>
                         <label htmlFor="username">Username
-                            <input onChange={this.handleChange} type="text" id="username"/>
+                            <input onChange={this.handleChange} type="text" id="username" autoComplete="current-password"/>
                         </label>
                         <label onChange={this.handleChange} htmlFor="password">Password
-                            <input type="password" id="password"/>
+                            <input type="password" id="password" autoComplete="current-password"/>
                         </label>
                         <button className="remote-button" type="submit">Submit</button>
                         <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
