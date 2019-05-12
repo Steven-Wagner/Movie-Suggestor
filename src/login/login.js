@@ -87,10 +87,10 @@ class Login extends Component {
                         <ErrorMessage error={this.state.error}/>
                         <form onSubmit={this.handleSubmit}>
                         <label htmlFor="username">Username
-                            <input onChange={this.handleChange} type="text" id="username" autoComplete="current-password"/>
+                            <input className="loginInput" onChange={this.handleChange} type="text" id="username" autoComplete="current-password"/>
                         </label>
                         <label onChange={this.handleChange} htmlFor="password">Password
-                            <input type="password" id="password" autoComplete="current-password"/>
+                            <input className="loginInput" type="password" id="password" autoComplete="current-password"/>
                         </label>
                         <button className="remote-button" type="submit">Submit</button>
                         <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>

@@ -103,10 +103,10 @@ class Signup extends Component {
         return (
             <div>
                 <Nav status="signUp"/>
-                <header className="sign-up-header">
-                    <h1 className="black-back">Sign-up</h1>
-                </header>
-                <section className="remote-edge">
+                <section className="logIn remote-edge">
+                    <header>
+                        <h2>Sign-up</h2>
+                    </header>
                     <ErrorMessage error={this.state.error}/>
                     <form onSubmit={this.handleSubmit} className='signup-form'>
                         <div>

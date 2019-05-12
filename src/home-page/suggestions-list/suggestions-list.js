@@ -6,6 +6,7 @@ import {API_BASE_URL} from '../../config'
 import TokenService from '../../services/token-services'
 import ErrorMessage from '../../commonComponents/error-message';
 import PopUp from '../../pop-up/pop-up';
+import {Link} from 'react-router-dom';
 
 class SuggestionsList extends Component {
 
@@ -126,7 +127,15 @@ class SuggestionsList extends Component {
         let movies;
 
         if (!this.state.sortedMovies || this.state.sortedMovies.length === 0) {
-            movies = "Try following some friends and reviewing some movies to get suggestions."
+            movies = <p>Try getting 
+                <Link to={`/friendsuggestions/${this.props.match.params.user_id}`} key="friend-suggestions-page">
+                    <button className="nav-button remote-button">Friend Suggestions</button>
+                </Link> 
+                and 
+                <Link to={`/newreview/${this.props.match.params.user_id}`} key="review-page">
+                    <button className="nav-button remote-button">Review Movie</button>
+                </Link>
+                to get suggestions.</p>
         }
         else {
             movies = this.state.sortedMovies.map((movie, i) => {

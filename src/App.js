@@ -12,7 +12,7 @@ class App extends Component {
   render() {
 
     return (
-      <main className="App">
+      <main className="main-app-container remote-edge">
         <Route 
           exact path="/"
           component={LandingPage}

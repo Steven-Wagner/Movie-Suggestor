@@ -1,10 +1,20 @@
 body {
   margin: 0;
   padding: 60px 0 0 0;
+  height: 100%;
+  position: relative;
   font-family: 'Squada One', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.main-app-container {
+  min-height: calc(100vh - 60px); /* will cover the 100% of viewport -navbar */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 40px; /* height of your footer */
+ }
 
 /* Color Theme Swatches in Hex */
 .Popcorn-1-hex { color: #F23545; }
@@ -68,6 +78,10 @@ body {
 nav,
 footer {
   padding: 0 3px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   /* background-color: rgba(242, 48, 48, 1); */
   
   background: rgba(237,142,142,1);
@@ -188,7 +202,7 @@ header {
   width: 100%;
 }
 
-.friend-suggestions-list, .movie-suggestion, .suggestions-list, .logIn {
+.friend-suggestions-list, .movie-suggestion, .suggestions-list, .logIn, .main-app-container {
   background-color: -moz-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
   background-color: -webkit-gradient(left top, right top, color-stop(0%, rgba(130,134,135,1)), color-stop(50%, rgba(104,127,136,1)), color-stop(100%, rgba(61,77,82,1)));
   background-color: -webkit-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
@@ -229,6 +243,7 @@ h2 {
 h3, h2 {
   overflow-wrap: break-word;
   color: rgba(242, 210, 152, 1);
+  font-size: 2em;
   /* text-shadow: rgba(242, 48, 48, 1) 1px 2px 1px; */
 }
 
@@ -245,14 +260,25 @@ label {
   color: black;
 }
 
-.review-input {
+.loginInput {
+  margin: 0 0 5px 5px;
+}
+
+input {
   text-align: center;
+  font-size: 18px;
+  max-width: 500px;
+  width: 50%;
   padding: 3px;
-  height: 2em;
+  height: 3em;
   font-weight: bold;
   border-radius: 5px;
   border: 2px solid rgba(4, 120, 165, 1);
   box-shadow: inset -2px -1px 3px rgb(5, 137, 189);
+}
+
+#stars {
+  width: 75px;
 }
 
 .review-title {
@@ -345,11 +371,14 @@ p + p {
 
 label{
   display: block;
+  font-size: 1.5em;
+  margin: 0 5px 0 0;
 }
 
 textarea {
   width: 75%;
-  height: 10vh;
+  height: 15vh;
+  font-size: 18px;
 }
 
 .movie-poster {
