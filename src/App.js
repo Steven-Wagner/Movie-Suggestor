@@ -6,6 +6,7 @@ import Homepage from './home-page/home-page';
 import FriendSuggester from './friend-suggestions/friend-suggestions';
 import ReviewMovie from './review-movie/review-movie';
 import Login from './login/login';
+import SeePastReviews from './see-past-reviews/see-past-reviews';
 
 class App extends Component {
 
@@ -51,7 +52,7 @@ class App extends Component {
           }
         />
         <Route 
-          path="/homepage/:user_id"
+          path="/homepage/:user"
           render={(props)=>
             <Homepage 
             {...props}
@@ -62,6 +63,13 @@ class App extends Component {
           path="/friendsuggestions/:user"
           render={(props)=>
             <FriendSuggester 
+            {...props}/>
+          }
+        />
+        <Route 
+          path="/pastreviews/:user"
+          render={(props)=>
+            <SeePastReviews
             {...props}/>
           }
         />

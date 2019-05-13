@@ -9,6 +9,7 @@ import UpdateReviewPopUp from  '../pop-up/updateReviewPopUp';
 import {toTitleCase} from '../util/titleCase';
 import Footer from '../commonComponents/footer';
 import Autocomplete from '../util/autocompleteMovies';
+import {Link} from 'react-router-dom'
 
 class ReviewMovie extends Component {
 
@@ -319,6 +320,9 @@ class ReviewMovie extends Component {
                     <button className="remote-button" type="button" onClick={(e) => this.handleCancel(e)}>Go Back</button>
                     </form>
                 </section>
+                <Link to={`/pastreviews/${this.props.match.params.user}`} key="homepage">
+                    <button className="nav-button remote-button">See Past Reviews</button>
+                </Link>
                 </main>
                 <Footer/>
             </div>

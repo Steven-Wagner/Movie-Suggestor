@@ -22,7 +22,7 @@ class SuggestionsList extends Component {
     }
 
     componentDidMount() {
-        fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user_id}`, {
+        fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user}`, {
             headers: {
                 'authorization': `bearer ${TokenService.getAuthToken()}`
             }
@@ -59,7 +59,7 @@ class SuggestionsList extends Component {
         const movie_id = movieToRemove[0].movie_id
 
         const movieToIgnore = {
-            user_id: this.props.match.params.user_id,
+            user_id: this.props.match.params.user,
             movie_id: movie_id,
             ignore: reason
         }
@@ -128,11 +128,11 @@ class SuggestionsList extends Component {
 
         if (!this.state.sortedMovies || this.state.sortedMovies.length === 0) {
             movies = <p>You must have friends to get movie suggestions try  
-                <Link to={`/friendsuggestions/${this.props.match.params.user_id}`} key="friend-suggestions-page">
+                <Link to={`/friendsuggestions/${this.props.match.params.user}`} key="friend-suggestions-page">
                     <button className="nav-button remote-button">Friend Suggestions</button>
                 </Link> 
                 . If you don't have any friend suggestions don't worry. We try to match users with friends that have reviewed similar movies. Try
-                <Link to={`/newreview/${this.props.match.params.user_id}`} key="review-page">
+                <Link to={`/newreview/${this.props.match.params.user}`} key="review-page">
                     <button className="nav-button remote-button">Review Movie</button>
                 </Link>
                 to get more friend suggestions.</p>
@@ -147,7 +147,7 @@ class SuggestionsList extends Component {
             ? <ConfirmReviewPopUp 
                 movie={this.state.confirmReview.movie} 
                 props={this.props}
-                user_id={this.props.match.params.user_id}
+                user={this.props.match.params.user}
                 removeReviewPopup={this.removeReviewPopup}/>
             : ''
             
