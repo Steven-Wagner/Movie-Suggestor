@@ -127,15 +127,15 @@ class SuggestionsList extends Component {
         let movies;
 
         if (!this.state.sortedMovies || this.state.sortedMovies.length === 0) {
-            movies = <p>Try getting 
+            movies = <p>You must have friends to get movie suggestions try  
                 <Link to={`/friendsuggestions/${this.props.match.params.user_id}`} key="friend-suggestions-page">
                     <button className="nav-button remote-button">Friend Suggestions</button>
                 </Link> 
-                and 
+                . If you don't have any friend suggestions don't worry. We try to match users with friends that have reviewed similar movies. Try
                 <Link to={`/newreview/${this.props.match.params.user_id}`} key="review-page">
                     <button className="nav-button remote-button">Review Movie</button>
                 </Link>
-                to get suggestions.</p>
+                to get more friend suggestions.</p>
         }
         else {
             movies = this.state.sortedMovies.map((movie, i) => {
