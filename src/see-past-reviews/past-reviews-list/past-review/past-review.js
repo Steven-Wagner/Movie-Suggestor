@@ -3,7 +3,6 @@ import StarRating from '../../../util/star-rating';
 
 
 export default function PastReview(props) {
-    console.log('props reviewData', props.reviewData)
     return (
         <section className="movie-suggestion remote-edge">
             <header className="movie-header">
