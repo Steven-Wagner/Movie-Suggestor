@@ -150,7 +150,7 @@ class FriendSuggester extends Component {
                 <main role="main">
                     {popUp}
                     <header role="banner" className="friend-suggestions">
-                        <h1>Friend Suggestions</h1>
+                        <h2 className="route-title">Friend Suggestions</h2>
                     </header>
                     <div className="friend-suggestions-list remote-edge">
                         <ErrorMessage error={this.state.error} />

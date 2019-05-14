@@ -300,7 +300,7 @@ class ReviewMovie extends Component {
                 <main role="main">
                 <Nav user={this.props.match.params.user} status={'review-page'}/>
                 <header className="new-review-header">
-                    <h2>New Review</h2>
+                    <h2 className="route-title">New Review</h2>
                 </header>
                 <section className="remote-edge">
                     {popUp}
@@ -310,14 +310,13 @@ class ReviewMovie extends Component {
                     <div className="form-section">
                         <label htmlFor="movie-title">Movie Title</label>
                         <Autocomplete component={this} currentInput={this.state.title}/>
-                        {/* <input className="review-title review-input" value={this.state.title} onChange={this.changeForm} type="text" name="movie-title" id="title" placeholder="e.g. Shawshank Redemption" required/> */}
                     </div>
                     <div className="stars form-section">
                         <label htmlFor="stars-review">Stars(1-5)</label>
                         <input className="review-input" value={this.state.stars} onChange={this.changeForm} id="stars" type="number" name="stars" placeholder="1" min="1" max="5"/>
                     </div>
-                    <button className="remote-button" type="submit">Submit</button>
                     <button className="remote-button" type="button" onClick={(e) => this.handleCancel(e)}>Go Back</button>
+                    <button className="remote-button" type="submit">Submit</button>
                     </form>
                 </section>
                 <Link to={`/pastreviews/${this.props.match.params.user}`} key="homepage">

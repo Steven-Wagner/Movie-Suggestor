@@ -14,6 +14,12 @@ body {
   display: block;
   position: relative;
   padding-bottom: 40px; /* height of your footer */
+
+  box-shadow: 
+  inset 3px 0px 0px black, 
+  inset 18px 0px 15px -15px black,
+  inset -3px 0px 0px black, 
+  inset -18px 0px 15px -15px black;
  }
 
 /* Color Theme Swatches in Hex */
@@ -46,13 +52,19 @@ code {
   position: fixed;
   top: 100px;
   z-index: 11;
-  font-size: .6em;
+  font-size: 1em;
   background-color: rgba(216, 142, 4, 1);;
   width: 200px;
   margin: 5%;
+  padding: 10px;
+  border-radius: 8px;
   border: 1px solid rgba(242, 182, 4, 1);
   animation:  slideInFromLeft .2s ease-in 0s 1,
               slideInFromLeft .2s ease-in 4.9s 1 reverse;
+}
+
+.suggested-friend-header {
+  padding: 0;
 }
 
 @keyframes slideInFromLeft {
@@ -114,6 +126,7 @@ nav {
 }
 
 footer {
+  font-size: 3.4vw;
 
   box-shadow: 
     inset 3px 0px 0px black, 
@@ -157,13 +170,13 @@ header {
   align-items: center;
 }
 
-.remote-edge {
+/* .remote-edge {
   box-shadow: 
     inset 3px 0px 0px black, 
     inset 18px 0px 15px -15px black,
     inset -3px 0px 0px black, 
     inset -18px 0px 15px -15px black;
-}
+} */
 
 .main-banner, .friend-suggestions, .new-review-header, .sign-up-header {
   background: rgba(153,153,153,1);
@@ -198,11 +211,13 @@ header {
 }
 
 .no-listings-hints {
-  background-color: rgba(130,134,135,1);
-  width: 100%;
+  color: rgba(242, 210, 152, 1);
+  text-shadow: rgba(242, 48, 48, 1) 1px 2px 1px;
+  font-size: 28px;
+  padding: 10px;
 }
 
-.friend-suggestions-list, .movie-suggestion, .suggestions-list, .logIn, .main-app-container {
+.main-app-container {
   background-color: -moz-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
   background-color: -webkit-gradient(left top, right top, color-stop(0%, rgba(130,134,135,1)), color-stop(50%, rgba(104,127,136,1)), color-stop(100%, rgba(61,77,82,1)));
   background-color: -webkit-linear-gradient(left, rgba(130,134,135,1) 0%, rgba(104,127,136,1) 50%, rgba(61,77,82,1) 100%);
@@ -215,11 +230,19 @@ header {
 h1 {
   overflow-wrap: break-word;
   color: rgba(242, 53, 69, 1);
+  font-size: 3em;
+  margin: 0;
+  line-height: .8;
+}
+
+.subtitle {
+  margin: 20px 0 0 0;
+  line-height: .9;
 }
 
 .black-back {
   width: 100%;
-  padding: 0 8px;
+  padding: 0 15px;
   border-radius: 8px;
 
   -webkit-box-shadow: 0px 4px 0px black, 0px 4px 15px rgba(0,0,0,.4), inset 0px 0px 5px rgba(255, 255, 255, 0.5);
@@ -240,6 +263,10 @@ h2 {
   min-width: 200px;
 }
 
+.route-title {
+  margin: 0;
+}
+
 h3, h2 {
   overflow-wrap: break-word;
   color: rgba(242, 210, 152, 1);
@@ -249,7 +276,7 @@ h3, h2 {
 
 section {
   padding: 30px 15px;
-  background-color: rgb(104, 127, 136);
+  /* background-color: rgb(104, 127, 136); */
 }
 
 .suggestions-list, .friend-suggestions-list {
@@ -390,7 +417,9 @@ p {
 
 .nav-button {
   min-height: 2em;
-  font-size: 2vh;
+  height: 35px;
+  width: 22vw;
+  font-size: .6em;
   padding: 0 5px;
   margin: 5px;
 }
@@ -404,6 +433,7 @@ p {
 .error-message {
   color: rgba(242, 210, 152, 1);
   text-shadow: rgba(242, 48, 48, 1) 1px 2px 1px;
+  font-size: 30px;
 }
 
 p + p {
@@ -436,7 +466,11 @@ textarea {
 
   nav {
     justify-content: flex-end;
-    padding: 10px 20%;
+    padding: 10px 5%;
+  }
+
+  footer {
+    font-size: 18px;
   }
 
   nav a {
@@ -455,5 +489,11 @@ textarea {
 
   .movie-poster {
     width: 150px;
+  }
+
+  .nav-button {
+    font-size: 13px;
+    height: 35px;
+    width: 140px;
   }
 }

@@ -4,8 +4,8 @@ export default function SuggetedUser(props) {
 
     return (
         <section className="remote-edge">
-            <header>
-                <h2 className="black-back">{props.user.username}</h2>
+            <header className="suggested-friend-header">
+                <h2>{props.user.username}</h2>
                 <p>{props.user.bio}</p>
                 <p>{`Match Score: ${props.user.match_score}`}</p>
             </header>

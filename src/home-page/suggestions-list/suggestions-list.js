@@ -127,7 +127,7 @@ class SuggestionsList extends Component {
         let movies;
 
         if (!this.state.sortedMovies || this.state.sortedMovies.length === 0) {
-            movies = <p>You must have friends to get movie suggestions try  
+            movies = <p className="no-listings-hints">You must have friends to get movie suggestions try  
                 <Link to={`/friendsuggestions/${this.props.match.params.user}`} key="friend-suggestions-page">
                     <button className="nav-button remote-button">Friend Suggestions</button>
                 </Link> 

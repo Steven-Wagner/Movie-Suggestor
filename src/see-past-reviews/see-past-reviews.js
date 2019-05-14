@@ -11,7 +11,7 @@ class SeePastReviews extends Component {
                 <Nav status="past-reviews" user={this.props.match.params.user}/>
                 <main role="main">
                     <header className="new-review-header">
-                        <h2>Past Reviews</h2>
+                        <h2 className="route-title">Past Reviews</h2>
                     </header>
                     <PastReviewsList user={this.props.match.params.user} {...this.props}/>     
                 </main>

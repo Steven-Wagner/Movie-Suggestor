@@ -46,16 +46,14 @@ class PastReviewsList extends Component {
 
 
     updateReview = title => {
-        window.open(`/newreview/${this.props.match.params.user}/${title}`, "_blank")
+        window.open(`/#/newreview/${this.props.match.params.user}/${title}`, "_blank")
     }
-
-    //then pass these to PastReviews component
 
     render() {
         let reviews
         
         if (!this.state.reviewsData || this.state.reviewsData.length === 0) {
-            reviews = <p>You don't have any reviews yet</p>
+            reviews = <p className="no-listings-hints">You don't have any reviews yet</p>
         }
         else {
             reviews = this.state.reviewsData.map(review => {
