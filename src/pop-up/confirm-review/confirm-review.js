@@ -14,7 +14,7 @@ export default class ConfirmReviewPopUp extends Component {
     handleReviewIt = () => {
         // this.props.props.history.push(`/newreview/${this.props.user_id}/${this.props.movie}`)
 
-        window.open(`/newreview/${this.props.user_id}/${this.props.movie}`, "_blank")
+        window.open(`/#/newreview/${this.props.user}/${this.props.movie}`, "_blank")
     }
 
     handleMaybeLater = () => {
