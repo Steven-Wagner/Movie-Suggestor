@@ -7,6 +7,8 @@ import {API_BASE_URL} from '../config'
 import TokenService from '../services/token-services';
 import ErrorMessage from '../commonComponents/error-message';
 import Footer from '../commonComponents/footer';
+import changeLoadingStatusTo from '../util/changeLoadingStatus';
+import LoadingMessage from '../commonComponents/loading-message';
 
 class FriendSuggester extends Component {
 
@@ -15,20 +17,24 @@ class FriendSuggester extends Component {
         this.state = {
             friendSuggestions: [],
             followedPopUp: {status: false, newFriend: ''},
-            error: ''
+            error: '',
+            loading: {status: false}
         }
 
         this.timeoutHandle = 0
     }
 
     componentDidMount() {
+        changeLoadingStatusTo(this, true)
         this.fetchFriendSuggestions()
         .then(friendSuggestions => {
+            changeLoadingStatusTo(this, false)
             this.setState({
                 friendSuggestions: friendSuggestions
             })
         })
         .catch(error => {
+            changeLoadingStatusTo(this, false)
             this.setState({
                 error: error
             })
@@ -135,8 +141,14 @@ class FriendSuggester extends Component {
                         key={i}/>
         })
 
-        if (friendSuggestionsList.length === 0) {
-            friendSuggestionsList = <p className="no-listings-hints">No suggestions. Try reviewing more movies to get more suggestions.</p>
+        if (friendSuggestionsList.length === 0 && !this.state.loading.status) {
+            friendSuggestionsList = 
+                <p className="no-listings-hints">
+                    No suggestions. Try reviewing more movies to get more suggestions.
+                </p>
+        }
+        if (this.state.loading.status) {
+            friendSuggestionsList = <LoadingMessage/>
         }
 
         const popUp = this.state.followedPopUp.status 

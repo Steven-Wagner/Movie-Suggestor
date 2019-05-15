@@ -4,6 +4,8 @@ import {API_BASE_URL} from '../config';
 import TokenService from '../services/token-services';
 import Nav from '../commonComponents/navigation';
 import Footer from '../commonComponents/footer';
+import changeLoadingStatusTo from '../util/changeLoadingStatus';
+import LoadingMessage from '../commonComponents/loading-message';
 
 class Signup extends Component {
 
@@ -15,7 +17,8 @@ class Signup extends Component {
             username: '',
             password: '',
             bio: '',
-            error: ''
+            error: '',
+            loading: {status: false}
         }
     }
 
@@ -47,34 +50,43 @@ class Signup extends Component {
 
     handleSubmit= e => {
         e.preventDefault()
-        const newError = this.validateForm()
-        if (newError) {
-            this.setState({
-                error: {message: newError}
-            })
-        }
-        else {
-
-            const newUser = {
-                first_name: this.state.firstName.trim(),
-                last_name: this.state.lastName.trim(),
-                username: this.state.username.trim(),
-                password: this.state.password.trim(),
-                bio: this.state.bio.trim(),
-            }
-
-            this.fetchPostNewUser(newUser)
-            .then(res => {
-                TokenService.saveAuthToken(res.authToken)
-    
-                this.props.goToHome(res.user_id)
-            })
-            .catch(error => {
-                this.setState({
-                    error: error
+        changeLoadingStatusTo(this, true)
+        .then(() => {
+            const newError = this.validateForm()
+            if (newError) {
+                changeLoadingStatusTo(this, false)
+                .then(() => {
+                    this.setState({
+                        error: {message: newError}
+                    })
                 })
-            })
-        }
+            }
+            else {
+
+                const newUser = {
+                    first_name: this.state.firstName.trim(),
+                    last_name: this.state.lastName.trim(),
+                    username: this.state.username.trim(),
+                    password: this.state.password.trim(),
+                    bio: this.state.bio.trim(),
+                }
+
+                this.fetchPostNewUser(newUser)
+                .then(res => {
+                    TokenService.saveAuthToken(res.authToken)
+        
+                    this.props.goToHome(res.user_id)
+                })
+                .catch(error => {
+                    changeLoadingStatusTo(this, false)
+                    .then(() => {
+                        this.setState({
+                            error: error
+                        })
+                    })
+                })
+            }
+        })
     }
 
     fetchPostNewUser = newUser => {
@@ -99,6 +111,12 @@ class Signup extends Component {
     }
     
     render() {
+
+        //should loading message be displayed?
+        let loadingMessage;
+        this.state.loading.status
+            ? loadingMessage = <LoadingMessage/>
+            : loadingMessage = ''
 
         return (
             <div>
@@ -127,8 +145,10 @@ class Signup extends Component {
                         </div>
                         <div>
                             <label htmlFor="bio">Bio</label>
-                            <textarea onChange={(e) => this.handleChange(e)} name='bio' id='bio' placeholder="Tell others about your favorite movies and what you like."/>
+                            <textarea className="bio-sign-up" onChange={(e) => this.handleChange(e)} name='bio' id='bio' placeholder="Tell others about your favorite movies and what you like."/>
                         </div>
+                        {loadingMessage}
+                        <ErrorMessage error={this.state.error}/>
                         <button className="remote-button" type='submit'>Sign Up</button>
                         <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
                     </form>

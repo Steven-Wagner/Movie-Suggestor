@@ -67,6 +67,23 @@ code {
   padding: 0;
 }
 
+.loading-message {
+  color: rgba(242, 210, 152, 1);
+  text-shadow: rgba(242, 48, 48, 1) 1px 2px 1px;
+  font-size: 50px;
+}
+
+.film-logo {
+  animation: spin 3s linear infinite;
+  padding: 15px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes slideInFromLeft {
 	0% {
 		left: -200px;
@@ -134,28 +151,11 @@ footer {
     inset -3px 0px 0px black, 
     inset -18px 0px 15px -15px black,
     inset 0px -3px 5px black;
-
-  background: rgba(237,142,142,1);
-  background: -moz-linear-gradient(-45deg, rgba(130,12,12,1) 0%, rgba(240,36,36,1) 22%,rgba(240,36,36,1) 80%, rgba(237,142,142,1) 100%);
-  background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(237,142,142,1)), color-stop(22%, rgba(240,36,36,1)), color-stop(80%, rgba(240,36,36,1)), color-stop(100%, rgba(130,12,12,1)));
-  background: -webkit-linear-gradient(-45deg, rgba(237,142,142,1) 0%, rgba(240,36,36,1) 22%, rgba(240,36,36,1) 80%, rgba(130,12,12,1) 100%);
-  background: -o-linear-gradient(-45deg, rgba(237,142,142,1) 0%, rgba(240,36,36,1) 22%, rgba(240,36,36,1) 80%, rgba(130,12,12,1) 100%);
-  background: -ms-linear-gradient(-45deg, rgba(237,142,142,1) 0%, rgba(240,36,36,1) 22%, rgba(240,36,36,1) 80%, rgba(130,12,12,1) 100%);
-  background: linear-gradient(135deg,rgba(240,36,36,1) 22%,rgba(240,36,36,1) 80%, rgba(237,142,142,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed8e8e', endColorstr='#820c0c', GradientType=1 );
 }
 
 a:link, a:visited, a {
   text-decoration: none;
 }
-
-/*nav a:link, nav a:visited, nav a {
-  font-size: calc(20px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
-  margin: 0 5px;
-  color: rgb(245, 218, 63);
-  text-shadow: rgba(4, 120, 165, 1) 1px 2px 1px;
-  display: inline-block; 
-}*/
 
 nav a:hover {
   cursor: pointer;
@@ -164,21 +164,14 @@ nav a:hover {
 }
 
 header {
-  padding: 45px 15px;
+  padding: 0px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* .remote-edge {
-  box-shadow: 
-    inset 3px 0px 0px black, 
-    inset 18px 0px 15px -15px black,
-    inset -3px 0px 0px black, 
-    inset -18px 0px 15px -15px black;
-} */
-
 .main-banner, .friend-suggestions, .new-review-header, .sign-up-header {
+  padding: 45px 15px;
   background: rgba(153,153,153,1);
 
   box-shadow: 
@@ -274,6 +267,10 @@ h3, h2 {
   /* text-shadow: rgba(242, 48, 48, 1) 1px 2px 1px; */
 }
 
+.landing-page-headers {
+  padding: 0px 15px;
+}
+
 section {
   padding: 30px 15px;
   /* background-color: rgb(104, 127, 136); */
@@ -283,25 +280,41 @@ section {
   color: black;
 }
 
+form > div {
+  padding-top: 15px;
+}
+
 label {
   color: black;
+}
+
+.login-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .loginInput {
   margin: 0 0 5px 5px;
 }
 
-input {
+input, textarea {
   text-align: center;
   font-size: 18px;
   max-width: 500px;
-  width: 50%;
+  width: 80%;
   padding: 3px;
   height: 3em;
   font-weight: bold;
   border-radius: 5px;
   border: 2px solid rgba(4, 120, 165, 1);
   box-shadow: inset -2px -1px 3px rgb(5, 137, 189);
+}
+
+.bio-sign-up {
+  text-align: left;
+  width: 90%;
+  height: 40vh;
 }
 
 .title-suggestions {
@@ -315,10 +328,10 @@ input {
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
-  /* max-height: 143px; */
   overflow-y: auto;
   padding-left: 0;
-  width: 50%;
+  width: 80%;
+  max-width: 500px;
 }
 
 .suggestion-active,
@@ -418,8 +431,8 @@ p {
 .nav-button {
   min-height: 2em;
   height: 35px;
-  width: 22vw;
-  font-size: .6em;
+  /* width: 22vw; */
+  font-size: .8em;
   padding: 0 5px;
   margin: 5px;
 }
@@ -444,12 +457,6 @@ label{
   display: block;
   font-size: 1.5em;
   margin: 0 5px 0 0;
-}
-
-textarea {
-  width: 75%;
-  height: 15vh;
-  font-size: 18px;
 }
 
 .movie-poster {
@@ -495,5 +502,10 @@ textarea {
     font-size: 13px;
     height: 35px;
     width: 140px;
+  }
+
+  .login-label {
+    flex-direction: row;
+    justify-content: center;
   }
 }

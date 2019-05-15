@@ -7,6 +7,8 @@ import TokenService from '../../services/token-services'
 import ErrorMessage from '../../commonComponents/error-message';
 import PopUp from '../../pop-up/pop-up';
 import {Link} from 'react-router-dom';
+import changeLoadingStatusTo from '../../util/changeLoadingStatus';
+import LoadingMessage from '../../commonComponents/loading-message';
 
 class SuggestionsList extends Component {
 
@@ -16,28 +18,38 @@ class SuggestionsList extends Component {
             sortedMovies: [],
             confirmReview: {status: false, movie: ''},
             error: '',
-            errorPopUp: {status: false, error: ''}
+            errorPopUp: {status: false, error: ''},
+            loading: {status: false}
         }
         this.timoutHandle = 0;
     }
 
     componentDidMount() {
-        fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user}`, {
-            headers: {
-                'authorization': `bearer ${TokenService.getAuthToken()}`
-            }
-        })
-        .then(res => {
-            return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-        })
-        .then(listOfMovies => {
-            this.setSortedMovies(listOfMovies)
-        })
-        .catch(error => {
-            this.setState({
-                error: error
+        changeLoadingStatusTo(this, true)
+        .then(() => {
+            fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user}`, {
+                headers: {
+                    'authorization': `bearer ${TokenService.getAuthToken()}`
+                }
+            })
+            .then(res => {
+                return (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            })
+            .then(listOfMovies => {
+                changeLoadingStatusTo(this, false)
+                .then(() => {
+                    this.setSortedMovies(listOfMovies)
+                })
+            })
+            .catch(error => {
+                changeLoadingStatusTo(this, false)
+                .then(() => {
+                    this.setState({
+                        error: error
+                    })
+                })
             })
         })
     }
@@ -122,26 +134,41 @@ class SuggestionsList extends Component {
         }, 5000)
     }
 
+    determainMainContent = () => {
+        let mainContent;
+        
+        //should loading message be displayed?
+        if (this.state.loading.status) {
+            mainContent = <LoadingMessage/>
+        }
+
+        //if there are no movie suggestions
+        if (!this.state.loading.status) {
+            if (!this.state.sortedMovies || this.state.sortedMovies.length === 0) {
+                mainContent = <p className="no-listings-hints">
+                    You must have friends to get movie suggestions try  
+                    <Link to={`/friendsuggestions/${this.props.match.params.user}`} key="friend-suggestions-page">
+                        <button className="nav-button remote-button">Friend Suggestions</button>
+                    </Link> 
+                    . If you don't have any friend suggestions don't worry. We try to match users with friends that have reviewed similar movies. Try
+                    <Link to={`/newreview/${this.props.match.params.user}`} key="review-page">
+                        <button className="nav-button remote-button">Review Movie</button>
+                    </Link>
+                    to get more friend suggestions.</p>
+            }
+        //display movie suggestions
+            else {
+                mainContent = this.state.sortedMovies.map((movie, i) => {
+                    return <MovieSuggestion movieData={movie} key={i} index={i} handleRemoveMovie={this.handleRemoveMovie} handleWatchedIt={this.handleWatchedIt}/>
+                })
+            }
+        }
+        return mainContent
+    }
+
     render() {
 
-        let movies;
-
-        if (!this.state.sortedMovies || this.state.sortedMovies.length === 0) {
-            movies = <p className="no-listings-hints">You must have friends to get movie suggestions try  
-                <Link to={`/friendsuggestions/${this.props.match.params.user}`} key="friend-suggestions-page">
-                    <button className="nav-button remote-button">Friend Suggestions</button>
-                </Link> 
-                . If you don't have any friend suggestions don't worry. We try to match users with friends that have reviewed similar movies. Try
-                <Link to={`/newreview/${this.props.match.params.user}`} key="review-page">
-                    <button className="nav-button remote-button">Review Movie</button>
-                </Link>
-                to get more friend suggestions.</p>
-        }
-        else {
-            movies = this.state.sortedMovies.map((movie, i) => {
-                return <MovieSuggestion movieData={movie} key={i} index={i} handleRemoveMovie={this.handleRemoveMovie} handleWatchedIt={this.handleWatchedIt}/>
-            })
-        }
+        const mainContent = this.determainMainContent();
 
         const watchedItPopup = this.state.confirmReview.status
             ? <ConfirmReviewPopUp 
@@ -159,7 +186,7 @@ class SuggestionsList extends Component {
             <div className="suggestions-list remote-edge">
                 <ErrorMessage error={this.state.error} />
                 {watchedItPopup}
-                {movies}
+                {mainContent}
                 {errorPopUp}
             </div>
         )

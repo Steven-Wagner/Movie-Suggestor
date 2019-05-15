@@ -5,6 +5,8 @@ import TokenService from '../services/token-services';
 import {setStatePromise} from '../util/common';
 import Nav from '../commonComponents/navigation';
 import Footer from '../commonComponents/footer';
+import changeLoadingStatusTo from '../util/changeLoadingStatus';
+import LoadingMessage from '../commonComponents/loading-message';
 
 class Login extends Component {
 
@@ -13,7 +15,8 @@ class Login extends Component {
         this.state = {
             username: '',
             password: '',
-            error: ''
+            error: '',
+            loading: false
         }
     }
 
@@ -40,15 +43,22 @@ class Login extends Component {
             password: this.state.password.trim()
         }
 
-        this.fetchPostLoginInfo(loginBody)
-        .then(authInfo => {
-            TokenService.saveAuthToken(authInfo.authToken)
+        changeLoadingStatusTo(this, true)
+        .then(() => {
 
-            this.props.goToHome(authInfo.user_id)
-        })
-        .catch(error => {
-            this.setState({
-                error: error
+            this.fetchPostLoginInfo(loginBody)
+            .then(authInfo => {
+                TokenService.saveAuthToken(authInfo.authToken)
+
+                this.props.goToHome(authInfo.user_id)
+            })
+            .catch(error => {
+                changeLoadingStatusTo(this, false)
+                .then(() => {
+                    this.setState({
+                        error: error
+                    })
+                })
             })
         })
     }
@@ -77,27 +87,35 @@ class Login extends Component {
     }
 
     render() {
+
+        //should loading message be displayed?
+        let loadingMessage;
+        this.state.loading.status 
+            ? loadingMessage = <LoadingMessage/>
+            : loadingMessage = ''
+
         return (
-                <main role="main">
-                    <Nav status="login"/>
-                    <section className="logIn remote-edge">
-                        <header>
-                            <h2>Login</h2>
-                        </header>
-                        <ErrorMessage error={this.state.error}/>
-                        <form onSubmit={this.handleSubmit}>
-                        <label htmlFor="username">Username
-                            <input className="loginInput" onChange={this.handleChange} type="text" id="username" autoComplete="current-password"/>
-                        </label>
-                        <label onChange={this.handleChange} htmlFor="password">Password
-                            <input className="loginInput" type="password" id="password" autoComplete="current-password"/>
-                        </label>
-                        <button className="remote-button" type="submit">Submit</button>
-                        <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
-                        </form>
-                    </section>
-                    <Footer/>
-                </main>
+            <main role="main">
+                <Nav status="login"/>
+                <section className="logIn remote-edge">
+                    <header>
+                        <h2>Login</h2>
+                    </header>
+                    {loadingMessage}
+                    <ErrorMessage error={this.state.error}/>
+                    <form onSubmit={this.handleSubmit}>
+                    <label className="login-label" htmlFor="username">Username
+                        <input className="loginInput" onChange={this.handleChange} type="text" id="username" autoComplete="current-password"/>
+                    </label>
+                    <label className="login-label" onChange={this.handleChange} htmlFor="password">Password
+                        <input className="loginInput" type="password" id="password" autoComplete="current-password"/>
+                    </label>
+                    <button className="remote-button" type="submit">Submit</button>
+                    <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
+                    </form>
+                </section>
+                <Footer/>
+            </main>
         )
     }
 }
