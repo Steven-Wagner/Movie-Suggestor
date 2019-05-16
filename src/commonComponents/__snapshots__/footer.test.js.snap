@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Footer/> renders the UI as expected 1`] = `
+<footer
+  className="remote-edge"
+>
+  Built by Steven Wagner. Movie data from 
+  <a
+    href="OMDB.com"
+    target="_blank"
+  >
+    omdbapi.com
+  </a>
+  . 2019
+</footer>
+`;

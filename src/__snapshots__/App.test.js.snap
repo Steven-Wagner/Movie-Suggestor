@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App/> renders the UI as expected 1`] = `
+<main
+  className="main-app-container remote-edge"
+>
+  <div>
+    <div
+      className="nav-wrapper"
+    >
+      <nav>
+        <a
+          href="/signup"
+          onClick={[Function]}
+        >
+          <button
+            className="nav-button remote-button"
+          >
+            Sign-up
+          </button>
+        </a>
+        <a
+          href="/login"
+          onClick={[Function]}
+        >
+          <button
+            className="nav-button remote-button"
+          >
+            Login
+          </button>
+        </a>
+      </nav>
+    </div>
+    <main
+      role="main"
+    >
+      <header
+        className="main-banner"
+        role="banner"
+      >
+        <h1>
+          <span
+            className="fas fa-film"
+          />
+          Movie Suggestor
+        </h1>
+        <h2
+          className="subtitle"
+        >
+          Personalized Movie Suggestions
+        </h2>
+      </header>
+      <section
+        className="remote-edge"
+      >
+        <header
+          className="landing-page-headers"
+        >
+          <h3>
+            Get suggestions from people just like you
+          </h3>
+        </header>
+        <p>
+          [
+          <em>
+            placeholder for screenshot movie suggestions
+          </em>
+          ]
+        </p>
+        <p>
+          Movie Suggestor allows you to follow people that have similar movie intrests and gives you movie suggestions based on the friends you follow.
+        </p>
+      </section>
+      <section
+        className="remote-edge"
+      >
+        <header
+          className="landing-page-headers"
+        >
+          <h3>
+            Review Movies
+          </h3>
+        </header>
+        <p>
+          [
+          <em>
+            placeholder for screenshot of movie review form
+          </em>
+          ]
+        </p>
+        <p>
+          Review movies in seconds and help the people that follow you get personalized movie suggestions.
+        </p>
+      </section>
+      <section
+        className="remote-edge"
+      >
+        <header
+          className="landing-page-headers"
+        >
+          <h3>
+            Start Getting Suggestions Now
+          </h3>
+          <a
+            href="/signup"
+            onClick={[Function]}
+          >
+            Sign-up!
+          </a>
+        </header>
+      </section>
+    </main>
+    <footer
+      className="remote-edge"
+    >
+      Built by Steven Wagner. Movie data from 
+      <a
+        href="OMDB.com"
+        target="_blank"
+      >
+        omdbapi.com
+      </a>
+      . 2019
+    </footer>
+  </div>
+</main>
+`;

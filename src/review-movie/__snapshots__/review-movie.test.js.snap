@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewMovie/> renders the UI as expected 1`] = `
+<div>
+  <main
+    role="main"
+  >
+    <div
+      className="nav-wrapper"
+    >
+      <nav>
+        <a
+          href="/homepage/1"
+          onClick={[Function]}
+        >
+          <button
+            className="nav-button remote-button"
+          >
+            Home
+          </button>
+        </a>
+        <a
+          href="/friendsuggestions/1"
+          onClick={[Function]}
+        >
+          <button
+            className="nav-button remote-button"
+          >
+            Friend Suggestions
+          </button>
+        </a>
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          <button
+            className="nav-button remote-button"
+            onClick={[Function]}
+          >
+            Logout
+          </button>
+        </a>
+      </nav>
+    </div>
+    <header
+      className="new-review-header"
+    >
+      <h2
+        className="route-title"
+      >
+        New Review
+      </h2>
+    </header>
+    <section
+      className="remote-edge"
+    >
+      
+      
+      <div
+        className="error-message"
+      />
+      <form
+        id="movie-review-form"
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-section"
+        >
+          <label
+            htmlFor="movie-title"
+          >
+            Movie Title
+          </label>
+          <input
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="Test Movie"
+          />
+        </div>
+        <div
+          className="stars form-section"
+        >
+          <label
+            htmlFor="stars-review"
+          >
+            Stars(1-5)
+          </label>
+          <input
+            className="review-input"
+            id="stars"
+            max="5"
+            min="1"
+            name="stars"
+            onChange={[Function]}
+            placeholder="1"
+            type="number"
+            value={3}
+          />
+        </div>
+        <button
+          className="remote-button"
+          onClick={[Function]}
+          type="button"
+        >
+          Go Back
+        </button>
+        <button
+          className="remote-button"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+    <a
+      href="/pastreviews/1"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        See Past Reviews
+      </button>
+    </a>
+  </main>
+  <footer
+    className="remote-edge"
+  >
+    Built by Steven Wagner. Movie data from 
+    <a
+      href="OMDB.com"
+      target="_blank"
+    >
+      omdbapi.com
+    </a>
+    . 2019
+  </footer>
+</div>
+`;

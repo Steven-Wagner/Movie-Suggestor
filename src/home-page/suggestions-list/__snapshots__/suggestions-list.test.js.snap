@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SuggestionsList/> renders the UI as expected 1`] = `
+<div
+  className="suggestions-list remote-edge"
+>
+  <div
+    className="error-message"
+  />
+  
+  <p
+    className="loading-message"
+  >
+    <span
+      className="fas fa-film film-logo"
+    />
+    Loading...
+  </p>
+  
+</div>
+`;

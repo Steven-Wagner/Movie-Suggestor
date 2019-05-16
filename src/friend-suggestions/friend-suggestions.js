@@ -134,6 +134,7 @@ class FriendSuggester extends Component {
 
         let friendSuggestionsList = this.state.friendSuggestions.map((user, i) => {
             return <SuggestedUser
+                        className="suggestedUser"
                         updateSuggestedFriends={this.updateSuggestedFriends} 
                         currentUser={this.props.match.params.user} 
                         addNewFriend={this.addNewFriend} 

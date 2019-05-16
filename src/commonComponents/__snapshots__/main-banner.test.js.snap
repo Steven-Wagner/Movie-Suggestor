@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MainBanner/> renders the UI as expected 1`] = `
+<header
+  className="main-banner"
+  role="banner"
+>
+  <h1>
+    <span
+      className="fas fa-film"
+    />
+    Movie Suggestor
+  </h1>
+  <h2
+    className="subtitle"
+  >
+    Personalized Movie Suggestions
+  </h2>
+</header>
+`;

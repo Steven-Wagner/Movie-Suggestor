@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SuggestedUser renders the UI as expected 1`] = `
+<section
+  className="remote-edge"
+>
+  <header
+    className="suggested-friend-header"
+  >
+    <h2>
+      test user
+    </h2>
+    <p>
+      test bio
+    </p>
+    <p>
+      Match Score: 3
+    </p>
+  </header>
+  <button
+    className="remote-button"
+    onClick={[Function]}
+  >
+    Follow
+  </button>
+</section>
+`;

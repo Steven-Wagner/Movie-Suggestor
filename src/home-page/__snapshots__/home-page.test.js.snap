@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Homepage/> renders the UI as expected 1`] = `
+<div>
+  <div
+    className="nav-wrapper"
+  >
+    <nav>
+      <a
+        href="/friendsuggestions/1"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Friend Suggestions
+        </button>
+      </a>
+      <a
+        href="/newreview/1"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Review Movie
+        </button>
+      </a>
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+          onClick={[Function]}
+        >
+          Logout
+        </button>
+      </a>
+    </nav>
+  </div>
+  <main
+    role="main"
+  >
+    <header
+      className="main-banner"
+      role="banner"
+    >
+      <h1>
+        <span
+          className="fas fa-film"
+        />
+        Movie Suggestor
+      </h1>
+      <h2
+        className="subtitle"
+      >
+        Personalized Movie Suggestions
+      </h2>
+    </header>
+    <div
+      className="suggestions-list remote-edge"
+    >
+      <div
+        className="error-message"
+      />
+      
+      <p
+        className="loading-message"
+      >
+        <span
+          className="fas fa-film film-logo"
+        />
+        Loading...
+      </p>
+      
+    </div>
+  </main>
+  <footer
+    className="remote-edge"
+  >
+    Built by Steven Wagner. Movie data from 
+    <a
+      href="OMDB.com"
+      target="_blank"
+    >
+      omdbapi.com
+    </a>
+    . 2019
+  </footer>
+</div>
+`;

@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> renders the UI as expected 1`] = `
+<main
+  role="main"
+>
+  <div
+    className="nav-wrapper"
+  >
+    <nav>
+      <a
+        href="/signup"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Sign-up
+        </button>
+      </a>
+    </nav>
+  </div>
+  <section
+    className="logIn remote-edge"
+  >
+    <header>
+      <h2>
+        Login
+      </h2>
+    </header>
+    
+    <div
+      className="error-message"
+    />
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="login-label"
+        htmlFor="username"
+      >
+        Username
+        <input
+          autoComplete="current-password"
+          className="loginInput"
+          id="username"
+          onChange={[Function]}
+          type="text"
+        />
+      </label>
+      <label
+        className="login-label"
+        htmlFor="password"
+        onChange={[Function]}
+      >
+        Password
+        <input
+          autoComplete="current-password"
+          className="loginInput"
+          id="password"
+          type="password"
+        />
+      </label>
+      <button
+        className="remote-button"
+        type="submit"
+      >
+        Submit
+      </button>
+      <button
+        className="remote-button"
+      >
+        Cancel
+      </button>
+    </form>
+  </section>
+  <footer
+    className="remote-edge"
+  >
+    Built by Steven Wagner. Movie data from 
+    <a
+      href="OMDB.com"
+      target="_blank"
+    >
+      omdbapi.com
+    </a>
+    . 2019
+  </footer>
+</main>
+`;

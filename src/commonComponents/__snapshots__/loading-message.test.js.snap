@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadingMessage/> renders the UI as expected 1`] = `
+<p
+  className="loading-message"
+>
+  <span
+    className="fas fa-film film-logo"
+  />
+  Loading...
+</p>
+`;

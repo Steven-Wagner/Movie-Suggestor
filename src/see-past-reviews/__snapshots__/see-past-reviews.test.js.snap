@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PastReviews/> renders the UI as expected 1`] = `
+<div>
+  <div
+    className="nav-wrapper"
+  >
+    <nav>
+      <a
+        href="/homepage/1"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Home
+        </button>
+      </a>
+      <a
+        href="/friendsuggestions/1"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Friend Suggestions
+        </button>
+      </a>
+      <a
+        href="/newreview/1"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Review Movie
+        </button>
+      </a>
+      <a
+        href="/"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+          onClick={[Function]}
+        >
+          Logout
+        </button>
+      </a>
+    </nav>
+  </div>
+  <main
+    role="main"
+  >
+    <header
+      className="new-review-header"
+    >
+      <h2
+        className="route-title"
+      >
+        Past Reviews
+      </h2>
+    </header>
+    <div>
+      <div
+        className="error-message"
+      />
+      <p
+        className="no-listings-hints"
+      >
+        You don't have any reviews yet
+      </p>
+    </div>
+  </main>
+  <footer
+    className="remote-edge"
+  >
+    Built by Steven Wagner. Movie data from 
+    <a
+      href="OMDB.com"
+      target="_blank"
+    >
+      omdbapi.com
+    </a>
+    . 2019
+  </footer>
+</div>
+`;

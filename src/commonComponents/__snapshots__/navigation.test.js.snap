@@ -1,0 +1,238 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Nav/> renders correctly for all pages renders friend-suggestions-page Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/homepage/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Home
+      </button>
+    </a>
+    <a
+      href="/newreview/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Review Movie
+      </button>
+    </a>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+    </a>
+  </nav>
+</div>
+`;
+
+exports[`<Nav/> renders correctly for all pages renders homepage Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/friendsuggestions/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Friend Suggestions
+      </button>
+    </a>
+    <a
+      href="/newreview/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Review Movie
+      </button>
+    </a>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+    </a>
+  </nav>
+</div>
+`;
+
+exports[`<Nav/> renders correctly for all pages renders landing-page Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/signup"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Sign-up
+      </button>
+    </a>
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Login
+      </button>
+    </a>
+  </nav>
+</div>
+`;
+
+exports[`<Nav/> renders correctly for all pages renders login Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/signup"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Sign-up
+      </button>
+    </a>
+  </nav>
+</div>
+`;
+
+exports[`<Nav/> renders correctly for all pages renders past-reviews Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/homepage/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Home
+      </button>
+    </a>
+    <a
+      href="/friendsuggestions/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Friend Suggestions
+      </button>
+    </a>
+    <a
+      href="/newreview/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Review Movie
+      </button>
+    </a>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+    </a>
+  </nav>
+</div>
+`;
+
+exports[`<Nav/> renders correctly for all pages renders review-page Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/homepage/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Home
+      </button>
+    </a>
+    <a
+      href="/friendsuggestions/testuser"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Friend Suggestions
+      </button>
+    </a>
+    <a
+      href="/"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+    </a>
+  </nav>
+</div>
+`;
+
+exports[`<Nav/> renders correctly for all pages renders signUp Nav UI as expected 1`] = `
+<div
+  className="nav-wrapper"
+>
+  <nav>
+    <a
+      href="/login"
+      onClick={[Function]}
+    >
+      <button
+        className="nav-button remote-button"
+      >
+        Login
+      </button>
+    </a>
+  </nav>
+</div>
+`;

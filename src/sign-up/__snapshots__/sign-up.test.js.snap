@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Signup/> renders the UI as expected 1`] = `
+<div>
+  <div
+    className="nav-wrapper"
+  >
+    <nav>
+      <a
+        href="/login"
+        onClick={[Function]}
+      >
+        <button
+          className="nav-button remote-button"
+        >
+          Login
+        </button>
+      </a>
+    </nav>
+  </div>
+  <section
+    className="logIn remote-edge"
+  >
+    <header>
+      <h2>
+        Sign-up
+      </h2>
+    </header>
+    <div
+      className="error-message"
+    />
+    <form
+      className="signup-form"
+      onSubmit={[Function]}
+    >
+      <div>
+        <label
+          htmlFor="first-name"
+        >
+          First name
+        </label>
+        <input
+          id="firstName"
+          name="first-name"
+          onChange={[Function]}
+          placeholder="First Name"
+          type="text"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="last-name"
+        >
+          Last name
+        </label>
+        <input
+          id="lastName"
+          name="last-name"
+          onChange={[Function]}
+          placeholder="Last Name"
+          type="text"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="username"
+        >
+          Username
+        </label>
+        <input
+          autoComplete="username"
+          id="username"
+          name="username"
+          onChange={[Function]}
+          type="text"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <input
+          autoComplete="new-password"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          type="password"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="bio"
+        >
+          Bio
+        </label>
+        <textarea
+          className="bio-sign-up"
+          id="bio"
+          name="bio"
+          onChange={[Function]}
+          placeholder="Tell others about your favorite movies and what you like."
+        />
+      </div>
+      
+      <div
+        className="error-message"
+      />
+      <button
+        className="remote-button"
+        type="submit"
+      >
+        Sign Up
+      </button>
+      <button
+        className="remote-button"
+      >
+        Cancel
+      </button>
+    </form>
+  </section>
+  <footer
+    className="remote-edge"
+  >
+    Built by Steven Wagner. Movie data from 
+    <a
+      href="OMDB.com"
+      target="_blank"
+    >
+      omdbapi.com
+    </a>
+    . 2019
+  </footer>
+</div>
+`;

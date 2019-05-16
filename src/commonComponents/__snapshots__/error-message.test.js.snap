@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorMessage/> renders the UI as expected 1`] = `
+<div
+  className="error-message"
+>
+  This is a test Error
+  <button
+    className="remote-button title-suggestion"
+    onClick={[Function]}
+  >
+    button is rendered
+  </button>
+</div>
+`;

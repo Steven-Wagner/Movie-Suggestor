@@ -28,6 +28,7 @@ class SuggestionsList extends Component {
         changeLoadingStatusTo(this, true)
         .then(() => {
             fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user}`, {
+                method: "GET",
                 headers: {
                     'authorization': `bearer ${TokenService.getAuthToken()}`
                 }

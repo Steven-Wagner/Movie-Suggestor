@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ConfirmReviewPopUp/> renders the UI as expected 1`] = `
+<div
+  className="confirm-review-popup"
+  hidden={false}
+>
+  <p>
+    Would you like to review 
+    Test Movie
+  </p>
+  <button
+    className="remote-button"
+    onClick={[Function]}
+    type="button"
+  >
+    Review It
+  </button>
+  <button
+    className="remote-button"
+    onClick={[Function]}
+    type="button"
+  >
+    Maybe Later
+  </button>
+</div>
+`;

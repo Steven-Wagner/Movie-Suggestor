@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PastReviews/> renders the UI as expected 1`] = `
+<section
+  className="movie-suggestion remote-edge"
+>
+  <header
+    className="movie-header"
+  >
+    <a
+      className="IMDB-link"
+      href="https://www.imdb.com/title/imdb test"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <h2
+        className="black-back movie-title"
+      >
+        Test Title
+      </h2>
+    </a>
+    <a
+      className="movie-poster-link"
+      href="https://www.imdb.com/title/imdb test"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <img
+        alt="Test Title poster"
+        className="movie-poster"
+      />
+    </a>
+    <p
+      className="movie-info"
+    >
+      Directed by: 
+      Test Director
+    </p>
+    <p
+      className="movie-info"
+    >
+      2019
+    </p>
+    <p
+      className="star-rating"
+    >
+      ★★★☆☆
+    </p>
+  </header>
+  <button
+    className="suggestion-options-button remote-button"
+    onClick={[Function]}
+  >
+    Delete
+  </button>
+  <button
+    className="suggestion-options-button remote-button"
+    onClick={[Function]}
+  >
+    Update
+  </button>
+</section>
+`;
