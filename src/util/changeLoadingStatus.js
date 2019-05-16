@@ -4,7 +4,6 @@ export default function changeLoadingStatusTo(component, status) {
             component.setState({
                 loading: {status: status}
             }, () => {
-                console.log(component.state.loading.status); 
                 resolve(true)
             })
         }

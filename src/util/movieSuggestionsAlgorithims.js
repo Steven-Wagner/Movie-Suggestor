@@ -8,7 +8,6 @@ export function getListOfMovies(user_id) {
         ? res.json().then(e => Promise.reject(e))
         : res.json()
     })
-    //this isn't right. How do I pass this error?
     .catch(error => {
         return error
     })

@@ -65,57 +65,13 @@ class ReviewMovie extends Component {
     }
 
     validateForm = (e) => {
-    //     return new Promise((resolve, reject) => {
-    //         try {
-    //             let errorMes = '';
-        
-    //             if (!this.state.title) {
-    //                 errorMes = 'Title is required'
-    //                 this.setState({
-    //                     error: errorMes
-    //                 }, /*this.submitReview()*/)
-    //             }
-    //             else {
-                    
-    //                 const urlFormatedTitle = toTitleCase(this.state.title).trim().replace(/' '/g, '+')
-
-    //                 this.fetchSingleMovieData(urlFormatedTitle)
-    //                 .then(movieData => {
-    //                     if (movieData.Title !== urlFormatedTitle) {
-    //                         if (movieData.Title) {
-
-    //                             const titleNotFoundError = new Error(`Title not found. Did you mean`)
-    //                             titleNotFoundError.button = movieData.Title
-    //                             throw titleNotFoundError;
-    //                         }
-    //                     }
-    //                     resolveObject(urlFormatedTitle)
-    //                 })
-    //             }
-    //         }
-    //         catch(error) {
-    //             if (error.Error === "Request limit reached!") {
-    //                 const limitReachedError = new Error("Request limit reached! Please try again tomorow :(")
-    //                 this.setState({
-    //                     error: limitReachedError
-    //                 }, resolve('false'))
-    //             }
-    //             else {
-    //                 console.log('errorshould be set to state', error)
-    //                 this.setState({
-    //                     error: error
-    //                 }, resolve('false'))
-    //             }
-    //         }
-    //     })
-    // }
         let errorMes = '';
         
         if (!this.state.title) {
             errorMes = 'Title is required'
             this.setState({
                 error: errorMes
-            }, /*this.submitReview()*/)
+            })
         }
         else {
             
@@ -263,11 +219,6 @@ class ReviewMovie extends Component {
             error: ''
         }, () => 
         this.validateForm(e)
-        // .then((urlFormatedTitle) => {
-        //     if (urlFormatedTitle !== 'false') {
-        //         this.submitReview(urlFormatedTitle)
-        //     }
-        // })
         )
     }
 

@@ -7,7 +7,6 @@ class SeePastReviews extends Component {
     render() {
         return (
             <div>
-                {/*add past-reviews to Nav*/}
                 <Nav status="past-reviews" user={this.props.match.params.user}/>
                 <main role="main">
                     <header className="new-review-header">
