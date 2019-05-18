@@ -18,7 +18,7 @@ This app utilizes an API that can be reviewed here: https://github.com/Steven-Wa
 
 ### Technology
 
-This app was built with Node.js, Express, and React and utilizes chia, mocha, Jest, and Enzyme for testing
+This app was built with Node.js, Express, React, PostgreSQL, and utilizes chia, mocha, Jest, and Enzyme for testing
 
 
 
