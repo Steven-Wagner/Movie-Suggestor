@@ -26,7 +26,7 @@ class Autocomplete extends Component {
   onChange = e => {
     const userInput = e.currentTarget.value;
 
-    this.props.component.changeTitleForm(userInput)
+    this.props.component.addToTitleInput(userInput)
 
     this.setState({
         userInput: userInput
@@ -62,7 +62,7 @@ class Autocomplete extends Component {
   // Event fired when the user clicks on a suggestion
   onClick = title => {
     // Update the user input and reset the rest of the state
-    this.props.component.changeTitleForm(title)
+    this.props.component.addToTitleInput(title)
 
     this.setState({
       activeSuggestion: 0,
@@ -81,7 +81,7 @@ class Autocomplete extends Component {
     if (e.keyCode === 13) {
         e.preventDefault();
 
-        this.props.component.changeTitleForm(suggestions[activeSuggestion].title)
+        this.props.component.addToTitleInput(suggestions[activeSuggestion].title)
 
       this.setState({
         activeSuggestion: 0,

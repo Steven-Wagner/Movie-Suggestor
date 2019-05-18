@@ -29,6 +29,7 @@ class Login extends Component {
     handleSubmit = e => {
         e.preventDefault()
 
+        //resets error message for better UX
         setStatePromise(this, {
             error: ''
         })
@@ -50,6 +51,7 @@ class Login extends Component {
             .then(authInfo => {
                 TokenService.saveAuthToken(authInfo.authToken)
 
+                //Move browser view to homepage
                 this.props.goToHome(authInfo.user_id)
             })
             .catch(error => {
@@ -104,14 +106,29 @@ class Login extends Component {
                     {loadingMessage}
                     <ErrorMessage error={this.state.error}/>
                     <form onSubmit={this.handleSubmit}>
-                    <label className="login-label" htmlFor="username">Username
-                        <input className="loginInput" onChange={this.handleChange} type="text" id="username" autoComplete="current-password"/>
+                    <label className="login-label" htmlFor="username">
+                        Username
+                        <input className="loginInput" 
+                            onChange={this.handleChange} 
+                            type="text" 
+                            id="username" 
+                            autoComplete="current-password"/>
                     </label>
-                    <label className="login-label" onChange={this.handleChange} htmlFor="password">Password
-                        <input className="loginInput" type="password" id="password" autoComplete="current-password"/>
+                    <label className="login-label" htmlFor="password">
+                        Password
+                        <input className="loginInput" 
+                            onChange={this.handleChange}
+                            type="password" 
+                            id="password" 
+                            autoComplete="current-password"/>
                     </label>
-                    <button className="remote-button" type="submit">Submit</button>
-                    <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
+                    <button className="remote-button" type="submit">
+                        Submit
+                    </button>
+                    <button className="remote-button" 
+                        onClick={this.props.clickCancel}>
+                        Cancel
+                    </button>
                     </form>
                 </section>
                 <Footer/>

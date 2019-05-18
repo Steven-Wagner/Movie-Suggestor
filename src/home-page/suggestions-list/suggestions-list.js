@@ -27,17 +27,7 @@ class SuggestionsList extends Component {
     componentDidMount() {
         changeLoadingStatusTo(this, true)
         .then(() => {
-            fetch(`${API_BASE_URL}/moviesuggestions/${this.props.match.params.user}`, {
-                method: "GET",
-                headers: {
-                    'authorization': `bearer ${TokenService.getAuthToken()}`
-                }
-            })
-            .then(res => {
-                return (!res.ok)
-                    ? res.json().then(e => Promise.reject(e))
-                    : res.json()
-            })
+            this.fetchMovieSuggestions(this.props.match.params.user)
             .then(listOfMovies => {
                 changeLoadingStatusTo(this, false)
                 .then(() => {
@@ -65,40 +55,73 @@ class SuggestionsList extends Component {
         })
     }
 
+    fetchMovieSuggestions = user_id => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/moviesuggestions/${user_id}`, {
+                    method: "GET",
+                    headers: {
+                        'authorization': `bearer ${TokenService.getAuthToken()}`
+                    }
+                })
+                .then(res => {
+                    return (!res.ok)
+                        ? res.json().then(e => Promise.reject(e))
+                        : resolve(res.json())
+                })
+            }
+            catch(error) {
+                reject(error)
+            }
+        })
+    }
+
     handleRemoveMovie = (index, reason='not_interested') => {
+        //Make a copy of sortedMovies so that we can later update state with newSuggestions
         const newSuggestions = this.state.sortedMovies.slice()
+        //Remove the movie to ignore from newSuggestions array
         const movieToRemove = newSuggestions.splice(index, 1)
 
         const movie_id = movieToRemove[0].movie_id
 
+        const user_id = this.props.match.params.user
+
         const movieToIgnore = {
-            user_id: this.props.match.params.user,
+            user_id: user_id,
             movie_id: movie_id,
             ignore: reason
         }
-
-        fetch(`${API_BASE_URL}/ignore/${movieToIgnore.user_id}`, {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-                "authorization": `bearer ${TokenService.getAuthToken()}`
-            },
-            body: JSON.stringify(movieToIgnore)
-        })
-        .then(res => {
-            return (!res.ok)
-                ? res.json().then(e => Promise.reject(e))
-                : res.json()
-        })
+        this.fetchPostMovieToIgnore(user_id, movieToIgnore)
         .then(id => {
-            this.setState({
-                sortedMovies: newSuggestions
-            })
+            this.setSortedMovies(newSuggestions)
         })
         .catch(error => {
             this.setState({
                 errorPopUp: {status:true, erorr: error.message}
             })
+        })
+    }
+
+    fetchPostMovieToIgnore = (user_id, movieToIgnore) => {
+        return new Promise((resolve, reject) => {
+            try {
+                fetch(`${API_BASE_URL}/ignore/${user_id}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json",
+                        "authorization": `bearer ${TokenService.getAuthToken()}`
+                    },
+                    body: JSON.stringify(movieToIgnore)
+                })
+                .then(res => {
+                    return (!res.ok)
+                        ? res.json().then(e => Promise.reject(e))
+                        : resolve(res.json())
+                })
+            }
+            catch(error) {
+                reject(error)
+            }
         })
     }
 
@@ -110,10 +133,12 @@ class SuggestionsList extends Component {
     }
 
     handleWatchedIt = (index, movie) => {
+        //Removes any old popup window
         setStatePromise(this, {
             confirmReview: {status: false, movie: ''}
         })
         .then(() => {
+            //adds new popup window
             setStatePromise(this, {
                 confirmReview: {status: true, movie: movie}
             })
@@ -125,6 +150,7 @@ class SuggestionsList extends Component {
     }
 
     popUpTimer = () => {
+        //Adds a timer that will remove the popup window after 5 seconds
         clearTimeout(this.timeoutHandle)
 
         this.timeoutHandle = setTimeout(() => {

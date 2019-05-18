@@ -15,7 +15,7 @@ export function toTitleCase(title) {
             return txt.toLowerCase();
         });
     
-    // Certain words such as initialisms or acronyms should be left uppercase
+    // Certain words such as initialisms or acronyms or roman numerals should be left uppercase
     uppers = ['Id', 'Tv', 'Iv', 'Ii', 'Iii', 'Vi', 'Vii', 'Viii', 'Ix' ];
     for (i = 0, j = uppers.length; i < j; i++) {
         str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'), 

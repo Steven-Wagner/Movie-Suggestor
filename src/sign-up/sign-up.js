@@ -103,6 +103,9 @@ class Signup extends Component {
                     ? res.json().then(e => {reject(e)})
                     : resolve(res.json())
                 })
+                .catch(error => {
+                    reject(error)
+                })
             }
             catch(error) {
                 reject(error)
@@ -128,29 +131,60 @@ class Signup extends Component {
                     <ErrorMessage error={this.state.error}/>
                     <form onSubmit={this.handleSubmit} className='signup-form'>
                         <div>
-                            <label htmlFor="first-name">First name</label>
-                            <input onChange={(e) => this.handleChange(e)} placeholder='First Name' type="text" name='first-name' id='firstName' />
+                            <label htmlFor="first-name">
+                                First name
+                            </label>
+                            <input 
+                                onChange={(e) => this.handleChange(e)} 
+                                placeholder='First Name' 
+                                type="text" 
+                                name='first-name' 
+                                id='firstName' />
                         </div>
                         <div>
                             <label htmlFor="last-name">Last name</label>
-                            <input onChange={(e) => this.handleChange(e)} type="text" name='last-name' id='lastName' placeholder='Last Name' />
+                            <input 
+                                onChange={(e) => this.handleChange(e)} 
+                                type="text" 
+                                name='last-name' 
+                                id='lastName' 
+                                placeholder='Last Name' />
                         </div>
                         <div>
                             <label htmlFor="username">Username</label>
-                            <input onChange={(e) => this.handleChange(e)} type="text" name='username' id='username' autoComplete='username'/>
+                            <input 
+                                onChange={(e) => this.handleChange(e)} 
+                                type="text" 
+                                name='username' 
+                                id='username' 
+                                autoComplete='username'/>
                         </div>
                         <div>
                             <label htmlFor="password">Password</label>
-                            <input onChange={(e) => this.handleChange(e)} type="password" name='password' id='password' autoComplete='new-password'/>
+                            <input 
+                                onChange={(e) => this.handleChange(e)} 
+                                type="password" 
+                                name='password' 
+                                id='password' 
+                                autoComplete='new-password'/>
                         </div>
                         <div>
                             <label htmlFor="bio">Bio</label>
-                            <textarea className="bio-sign-up" onChange={(e) => this.handleChange(e)} name='bio' id='bio' placeholder="Tell others about your favorite movies and what you like."/>
+                            <textarea className="bio-sign-up" 
+                                onChange={(e) => this.handleChange(e)} 
+                                name='bio' 
+                                id='bio' 
+                                placeholder="Tell others about your favorite movies and what you like."/>
                         </div>
                         {loadingMessage}
                         <ErrorMessage error={this.state.error}/>
-                        <button className="remote-button" type='submit'>Sign Up</button>
-                        <button className="remote-button" onClick={this.props.clickCancel}>Cancel</button>
+                        <button className="remote-button" type='submit'>
+                            Sign Up
+                        </button>
+                        <button className="remote-button" 
+                            onClick={this.props.clickCancel}>
+                            Cancel
+                        </button>
                     </form>
                 </section>
                 <Footer/>

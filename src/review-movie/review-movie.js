@@ -16,6 +16,7 @@ class ReviewMovie extends Component {
     constructor(props) {
         super(props)
 
+        //If movie param is passed to this component this.state.title will default to that value otherwise it will be undefined
         let movieToReview = '';
         if (this.props.match.params.movie) {
             movieToReview = this.props.match.params.movie
@@ -37,6 +38,7 @@ class ReviewMovie extends Component {
     }
 
     popUpTimer = (popUpToBeTimed) => {
+        //set 5 second timer on popup
         clearTimeout(this.timeoutHandle)
         this.timeoutHandle = setTimeout(() => {
             this.setState({
@@ -52,15 +54,9 @@ class ReviewMovie extends Component {
         })
     }
 
-    changeTitleForm = title => {
+    addToTitleInput = title => {
         this.setState({
             title: title
-        })
-    }
-
-    addToTitleInput = suggestedTitle => {
-        this.setState({
-            title: suggestedTitle
         })
     }
 
@@ -79,6 +75,7 @@ class ReviewMovie extends Component {
 
             this.fetchSingleMovieData(urlFormatedTitle)
             .then(movieData => {
+                //if the inputed title does not match a movie in OMDB database but a title was suggested
                 if (movieData.Title !== urlFormatedTitle) {
                     if (movieData.Title) {
 
@@ -126,6 +123,9 @@ class ReviewMovie extends Component {
                             resolve(jres)
                         }
                     })
+                    .catch(error => {
+                        reject(error)
+                    })
                 }
             catch(error) {
                 reject(error)
@@ -134,52 +134,61 @@ class ReviewMovie extends Component {
     }
 
     submitReview = title => {
-        if(!this.state.error) {
-            const newReview = {
-                title: title,
-                star_rating: this.state.stars,
-                user_id: this.props.match.params.user
+
+        const newReview = {
+            title: title,
+            star_rating: this.state.stars,
+            user_id: this.props.match.params.user
+        }
+
+        const user_id = this.props.match.params.user
+
+        this.fetchInsertNewReview(user_id, newReview)
+        .then(res => {
+            //If the user was brought here from another tab
+            if (this.props.match.params.movie) {
+                window.close()
             }
+            else {
+                setStatePromise(this, {
+                    reviewSubmitedPopUp: {status: true, message: `${newReview.title} has been added to your reviews!`}
+                })
+            }
+        })
+        .then(() => {
+            this.popUpTimer('reviewSubmitedPopUp')
+            this.resetForm()
+        })
+        .catch(error => {
 
-            const user_id = this.props.match.params.user
+            if (error.message === "This movie has already been reviewed") {
+                this.showUpdateReviewPopUp(newReview, error.movie_id)
+                .then(() => {
+                    this.popUpTimer('updateReviewPopUp')
+                })
+            }
+            else {
 
-            this.fetchInsertNewReview(user_id, newReview)
-            .then(res => {
-                if (this.props.match.params.movie) {
-                    window.close()
-                }
-                else {
-                    setStatePromise(this, {
-                        reviewSubmitedPopUp: {status: true, message: `${newReview.title} has been added to your reviews!`}
-                    })
-                }
+                this.setState({
+                    error: error
+                })
+            }
+        })
+    }
+
+    showUpdateReviewPopUp = (newReview, movie_id) => {
+        return new Promise((resolve, reject) => {
+            setStatePromise(this, {
+                updateReviewPopUp: {
+                    status: true, 
+                    message: `${newReview.title} has already been reviewed. Would you like to update it with this new data?`,
+                    review: newReview,
+                    movie_id: movie_id}
             })
             .then(() => {
-                this.popUpTimer('reviewSubmitedPopUp')
-                this.resetForm()
+                resolve()
             })
-            .catch(error => {
-
-                if (error.message === "This movie has already been reviewed") {
-                    setStatePromise(this, {
-                        updateReviewPopUp: {
-                            status: true, 
-                            message: `${newReview.title} has already been reviewed. Would you like to update it with this new data?`,
-                            review: newReview,
-                            movie_id: error.movie_id}
-                    })
-                    .then(() => {
-                        this.popUpTimer('updateReviewPopUp')
-                    })
-                }
-                else {
-
-                    this.setState({
-                        error: error
-                    })
-                }
-            })
-        }
+        })
     }
 
     fetchInsertNewReview = (user_id, newReview) => {
@@ -248,32 +257,50 @@ class ReviewMovie extends Component {
 
         return (
             <div>
-                <main role="main">
                 <Nav user={this.props.match.params.user} status={'review-page'}/>
                 <header className="new-review-header">
-                    <h2 className="route-title">New Review</h2>
+                    <h2 className="route-title">
+                        New Review
+                    </h2>
                 </header>
                 <section className="remote-edge">
                     {popUp}
                     {updateReviewPopUp}
                     <ErrorMessage error={this.state.error} addToTitleInput={this.addToTitleInput}/>
                     <form id="movie-review-form" onSubmit={this.handleSubmit}>
-                    <div className="form-section">
-                        <label htmlFor="movie-title">Movie Title</label>
-                        <Autocomplete component={this} currentInput={this.state.title}/>
-                    </div>
-                    <div className="stars form-section">
-                        <label htmlFor="stars-review">Stars(1-5)</label>
-                        <input className="review-input" value={this.state.stars} onChange={this.changeForm} id="stars" type="number" name="stars" placeholder="1" min="1" max="5"/>
-                    </div>
-                    <button className="remote-button" type="button" onClick={(e) => this.handleCancel(e)}>Go Back</button>
-                    <button className="remote-button" type="submit">Submit</button>
+                        <div className="form-section">
+                            <label htmlFor="movie-title">
+                                Movie Title
+                            </label>
+                            <Autocomplete component={this} currentInput={this.state.title}/>
+                        </div>
+                        <div className="stars form-section">
+                            <label htmlFor="stars-review">
+                                Stars(1-5)
+                            </label>
+                            <input className="review-input" 
+                                value={this.state.stars} 
+                                onChange={this.changeForm} 
+                                id="stars" type="number" 
+                                name="stars" 
+                                placeholder="1" 
+                                min="1" 
+                                max="5"/>
+                        </div>
+                        <button className="remote-button" type="button" 
+                            onClick={(e) => this.handleCancel(e)}>
+                            Go Back
+                        </button>
+                        <button className="remote-button" type="submit">
+                            Submit
+                        </button>
                     </form>
                 </section>
                 <Link to={`/pastreviews/${this.props.match.params.user}`} key="homepage">
-                    <button className="nav-button remote-button">See Past Reviews</button>
+                    <button className="nav-button remote-button">
+                        See Past Reviews
+                    </button>
                 </Link>
-                </main>
                 <Footer/>
             </div>
         )
