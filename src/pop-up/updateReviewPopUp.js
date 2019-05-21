@@ -6,7 +6,7 @@ import {setStatePromise} from '../util/common';
 export default function PopUp(props) {
     return (
         <div className="pop-up">
-            <p>{props.message}</p>
+            <p className="popup-content">{props.message}</p>
             <button className="remote-button" 
                 onClick={() => 
                 updateReview(

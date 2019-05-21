@@ -479,6 +479,10 @@ input, textarea {
 p {
   margin: 0 auto;
   max-width: 650px;
+  color: rgba(242, 210, 152, 1);
+}
+
+.popup-content {
   color: black;
 }
 

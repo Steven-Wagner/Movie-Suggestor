@@ -16,7 +16,7 @@ export default class ConfirmReviewPopUp extends Component {
     render() {
         return (
             <div className={"confirm-review-popup"}>
-                <p>Would you like to review {this.props.movie}</p>
+                <p className="popup-content">Would you like to review {this.props.movie}</p>
                 <button className="remote-button" type="button" 
                     onClick={() => this.handleReviewIt()}>
                     Review It
