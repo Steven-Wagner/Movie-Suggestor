@@ -28,13 +28,19 @@ export default function Nav(props) {
         <Link to={`/homepage/${props.user}`} key="homepage">
             <button className="nav-button remote-button">Home</button>
         </Link>
+    const pastReviews = 
+    <Link to={`/pastreviews/${props.user}`} key="pastreviews">
+        <button className="nav-button remote-button">
+            Past Reviews
+        </button>
+    </Link>
 
     
     const navLinksToInclude = {
         "landing-page": [signUp, logIn],
-        "homepage": [friendSuggestions, reviewMovie, logOut],
-        "review-page": [homePage, friendSuggestions, logOut],
-        "friend-suggestions-page": [homePage, reviewMovie, logOut],
+        "homepage": [friendSuggestions, reviewMovie, pastReviews, logOut],
+        "review-page": [homePage, friendSuggestions, pastReviews, logOut],
+        "friend-suggestions-page": [homePage, reviewMovie, pastReviews, logOut],
         "login": [signUp],
         "signUp": [logIn],
         "past-reviews": [homePage, friendSuggestions, reviewMovie, logOut]

@@ -38,6 +38,7 @@ This app utilizes an API that can be reviewed here: https://github.com/Steven-Wa
 
 * HTML
 * CSS
+* Javascript
 * Node.js 
 * Express 
 * React 
