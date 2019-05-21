@@ -16,14 +16,15 @@ class LandingPage extends Component {
                     <header className="landing-page-headers">
                         <h3>Get suggestions from people just like you</h3>
                     </header>
-                    <p>[<em>placeholder for screenshot movie suggestions</em>]</p>
+                    <p><img className="screenshot" src="https://i.imgur.com/RWSM72x.png" alt="Screenshot of movie suggestions page" /></p>
+                    <p><img className="screenshot" src="https://i.imgur.com/owDvwBR.png" alt="Screenshot of friend suggestions feature"/></p>
                     <p>Movie Suggestor allows you to follow people that have similar movie intrests and gives you movie suggestions based on the friends you follow.</p>
                 </section>
                 <section className="remote-edge">
                     <header className="landing-page-headers">
                         <h3>Review Movies</h3>
                     </header>
-                    <p>[<em>placeholder for screenshot of movie review form</em>]</p>
+                    <p><img className="screenshot" src="https://i.imgur.com/7heXSx6.png" alt="Screenshot of reviews page" /></p>
                     <p>Review movies in seconds and help the people that follow you get personalized movie suggestions.</p>
                 </section>
                 <section className="remote-edge">

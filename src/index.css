@@ -189,6 +189,10 @@ header {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#999999', endColorstr='#056991', GradientType=1 );
 }
 
+.screenshot {
+  width: 100%;
+}
+
 .icon {
   color:rgb(245, 218, 63);
 }
